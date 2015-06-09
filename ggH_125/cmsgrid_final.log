@@ -15,13 +15,13 @@
    ***************************************************************************************
                                                                                           
    
-   Command line: ./JHUGen Collider=1 PChannel=0 Process=0 Unweighted=1 DecayMode1=4 DecayMode2=4 OffXVV=011 ReadLHE=cmsgrid_tmp.lhe DataFile=cmsgrid_final
+   Command line: ./JHUGen Collider=1 PChannel=0 Process=0 Unweighted=1 DecayMode1=10 DecayMode2=10 OffXVV=011 ReadLHE=cmsgrid_tmp.lhe DataFile=cmsgrid_final
    
    Input Parameter:
     Collider: P-P, sqrt(s)=13000.00
     Resonance: spin=0, mass= 125.60 width= 0.004
                (This is ReadLHEFile mode. Resonance mass is read from LHE input file.)
-    DecayMode1: 4  DecayMode2: 4
+    DecayMode1:10  DecayMode2:10
     W-boson: mass=80.399, width=2.0850
     Interference: F
     
@@ -43,14 +43,14 @@
     
   A Higgs mass of  125.00 GeV was determined from the LHE input file.
 
-        5000  events accepted (   6.0880740000000060      ) seconds
-       10000  events accepted (   12.172150000000002      ) seconds
+        5000  events accepted (   6.4200249999999954      ) seconds
+       10000  events accepted (   13.008022999999994      ) seconds
  
- Evaluation Counter:                908373
+ Evaluation Counter:                903503
  Acceptance Counter:                 10000
- Rejection  Counter:                898373
+ Rejection  Counter:                893503
   Alert  Counter:                     0
-  event generation rate (events/sec)   821.54754911827399     
+  event generation rate (events/sec)   768.75632830600046     
 
 Accepted Events:     10000
 Branchings:
