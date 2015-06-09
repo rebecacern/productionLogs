@@ -83,7 +83,7 @@ masswindow 10d0  !(default 10d0) number of widths around hmass in the BW for an 
 !	               12  gamma gamma
 ! **** Mandatory parameters for SM or MW ****
 hmass 120            ! Higgs boson mass
-hwidth 4.07D-03     ! Higgs boson width
+hwidth 3.51D-03     ! Higgs boson width
 topmass 172.5        ! top quark mass
 bottommass 4.75d0    ! bottom quark mass - if defined it enables the bottom quark
 !charmmass 1.5d0     ! char quark mass - if defined it enables the charm quark
@@ -92,7 +92,6 @@ hdecaywidth 0        ! If equals to 1 read total decay width from HDECAY sm.br2 
 withnegweights 0
 pdfreweight 1       ! PDF reweighting
 storeinfo_rwgt 1    ! store weight information
-
 lhrwgt_id 'c'
 lhrwgt_descr 'muR=0.10000E+01 muF=0.10000E+01'
 lhrwgt_group_name 'scale_variation'
@@ -494,9 +493,9 @@ computing weights for NNPDF 2.3 two alphas variation
 
  finished computing weights ..
 
--rw-r--r--. 1 rebeca zh 81523839 Jun  7 15:24 cmsgrid_final.lhe
+-rw-r--r--. 1 rebeca zh 81523838 Jun  9 18:11 cmsgrid_final.lhe
 /afs/cern.ch/work/r/rebeca/hww_signal_gridpacks/CMSSW_7_1_14/src/tmp/powhegbox_gg_H_quark-mass-effects
-./JHUGen Collider=1 PChannel=0 Process=0 Unweighted=1 DecayMode1=4 DecayMode2=4 OffXVV=011 ReadLHE=cmsgrid_tmp.lhe DataFile=cmsgrid_final
+./JHUGen Collider=1 PChannel=0 Process=0 Unweighted=1 DecayMode1=10 DecayMode2=10 OffXVV=011 ReadLHE=cmsgrid_tmp.lhe DataFile=cmsgrid_final
  
                                                                                           
    ***************************************************************************************
@@ -515,13 +514,13 @@ computing weights for NNPDF 2.3 two alphas variation
    ***************************************************************************************
                                                                                           
    
-   Command line: ./JHUGen Collider=1 PChannel=0 Process=0 Unweighted=1 DecayMode1=4 DecayMode2=4 OffXVV=011 ReadLHE=cmsgrid_tmp.lhe DataFile=cmsgrid_final
+   Command line: ./JHUGen Collider=1 PChannel=0 Process=0 Unweighted=1 DecayMode1=10 DecayMode2=10 OffXVV=011 ReadLHE=cmsgrid_tmp.lhe DataFile=cmsgrid_final
    
    Input Parameter:
     Collider: P-P, sqrt(s)=13000.00
     Resonance: spin=0, mass= 125.60 width= 0.004
                (This is ReadLHEFile mode. Resonance mass is read from LHE input file.)
-    DecayMode1: 4  DecayMode2: 4
+    DecayMode1:10  DecayMode2:10
     W-boson: mass=80.399, width=2.0850
     Interference: F
     
@@ -546,14 +545,14 @@ computing weights for NNPDF 2.3 two alphas variation
 
   finding maximal weight with     10000000  points
   generating events
-        5000  events accepted (   8.4097200000000072      ) seconds
-       10000  events accepted (   16.923427000000004      ) seconds
+        5000  events accepted (   10.430414000000013      ) seconds
+       10000  events accepted (   21.466737000000023      ) seconds
  
- Evaluation Counter:               1252493
+ Evaluation Counter:               1258013
  Acceptance Counter:                 10000
- Rejection  Counter:               1242493
+ Rejection  Counter:               1248013
   Alert  Counter:                     0
-  event generation rate (events/sec)   590.89686740162017     
+  event generation rate (events/sec)   465.81528365099683     
   Done
 Output ready with cmsgrid_final.lhe at /afs/cern.ch/work/r/rebeca/hww_signal_gridpacks/CMSSW_7_1_14/src/tmp
-End of job on  Sun Jun 7 15:26:14 CEST 2015
+End of job on  Tue Jun 9 18:14:22 CEST 2015
