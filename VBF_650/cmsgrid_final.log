@@ -1,0 +1,62 @@
+                                                                                          
+   ***************************************************************************************
+   *                                JHU Generator v5.2.5                                 *
+   ***************************************************************************************
+   *                                                                                     *
+   *   Spin and parity determination of single-produced resonances at hadron colliders   *
+   *                                                                                     *
+   *          I. Anderson, S. Bolognesi, F. Caola, Y. Gao, A. Gritsan, C. Martin,        *
+   *                Z. Guo, K. Melnikov, H. Roskes, U. Sarica, M. Schulze,               *
+   *                   N. Tran, A. Whitbeck, M. Xiao, C. You, Y. Zhou                    *
+   *                Phys.Rev. D81 (2010) 075022;  arXiv:1001.3396 [hep-ph],              *
+   *                Phys.Rev. D86 (2012) 095031;  arXiv:1208.4018 [hep-ph],              *
+   *                Phys.Rev. D89 (2014) 035007;  arXiv:1309.4819 [hep-ph].              *
+   *                                                                                     *
+   ***************************************************************************************
+                                                                                          
+   
+   Command line: ./JHUGen Collider=1 PChannel=1 MReso=650 Process=0 Unweighted=1 DecayMode1=10 DecayMode2=5 OffXVV=011 ReadLHE=cmsgrid_tmp.lhe DataFile=cmsgrid_final
+   
+   Input Parameter:
+    Collider: P-P, sqrt(s)=13000.00
+    Resonance: spin=0, mass= 650.00 width= 0.004
+               (This is ReadLHEFile mode. Resonance mass is read from LHE input file.)
+    DecayMode1:10  DecayMode2: 5
+    W-boson: mass=80.399, width=2.0850
+    Interference: F
+    
+    spin-0-VV couplings: 
+      generate_as=F
+      ghg2=  0.10000000E+01  0.00000000E+00i
+      ghg3=  0.00000000E+00  0.00000000E+00i
+      ghg4=  0.00000000E+00  0.00000000E+00i
+      ghz1=  0.20000000E+01  0.00000000E+00i
+      ghz2=  0.00000000E+00  0.00000000E+00i
+      ghz3=  0.00000000E+00  0.00000000E+00i
+      ghz4=  0.00000000E+00  0.00000000E+00i
+      Lambda=  1000.0
+    
+    LHE output: cmsgrid_final.lhe
+    Histogram output: cmsgrid_final.dat
+    Log file: cmsgrid_final.log
+    LHE input: cmsgrid_tmp.lhe
+    
+  A Higgs mass of  650.00 GeV was determined from the LHE input file.
+
+        5000  events accepted (   8.7086759999999686      ) seconds
+       10000  events accepted (   18.329212999999982      ) seconds
+ 
+ Evaluation Counter:                 72941
+ Acceptance Counter:                 10000
+ Rejection  Counter:                 62941
+  Alert  Counter:                     0
+  event generation rate (events/sec)   545.57716144168387     
+
+Accepted Events:     10000
+Branchings:
+            Br_Z_ll_counter   0.000 %    +/- 0.000 %
+            Br_Z_inv_counter  0.000 %    +/- 0.000 %
+            Br_Z_uu_counter   0.000 %    +/- 0.000 %
+            Br_Z_dd_counter   0.000 %    +/- 0.000 %
+            Br_W_ll_counter   0.000 %    +/- 0.000 %
+            Br_W_ud_counter   0.000 %    +/- 0.000 %
