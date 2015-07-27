@@ -1,0 +1,2689 @@
+./mcfm 
+ ************** MCFM - version 7.0 ****************
+ *                                                *
+ * MCFM, v7.0                   March 20th, 2015  *
+ *                                                *
+ * Authors: John Campbell, Keith Ellis,           *
+ *          Walter Giele, Ciaran Williams         *
+ *         (johnmc@fnal.gov, ellis@fnal.gov,      *
+ *          giele@fnal.gov,ciaran@fnal.gov)       *
+ *                                                *
+ * For details see:                               *
+ *                                                *
+ *  arXiv:1502.02990 (VBF and VBS Higgs)          *
+ *  arXiv:1403.2641  (Triphoton production)       *
+ *  arXiv:1312.1628  (gg->WW, Higgs interference) *
+ *  arXiv:1311.3589  (gg->ZZ, Higgs interference) *
+ *  Phys.Rev.D87:114006, arXiv:1302.3856          *
+ *  (tZ, tH -- with R. Rontsch)                   *
+ *  arXiv:1211.6390 (DM, P. Fox and C. Williams)  *
+ *  JHEP 1211:162 (2012), arXiv:1208.0566         *
+ *  (Z+gam+jet,Z+gam+gam -- with H. Hartanto)     *
+ *  arXiv:1204.1513 (top production+decay)        *
+ *  JHEP 1207:052 (2012), arXiv:1204.5678 (ttW)   *
+ *  JHEP 1110:005 (2011), arXiv:1107.5569         *
+ *         (gg->WW,Higgs intference)              *
+ *  JHEP 1107:018 (2011), arXiv:1105.0020         *
+ *         (diboson update)                       *
+ *  JHEP 1103:027 (2011), arXiv:1011.6647         *
+ *         (Wbb for mb>0, with S. Badger)         *
+ *  Phys.Rev.D81:074023, arXiv:1001.4495 (H+2jet) *
+ *                                                *
+ *  P.R.L. 102:142001, arXiv:0903.0005 [hep-ph]   *
+ *    (t-channel single top + explicit b,         *
+ *      JC, R.Frederix, F.Maltoni, F.Tramontano)  *
+ *  N.P.B 726:109(2005), hep-ph/0506289 (W+t)     *
+ *  Phys.Rev.D70:094012, hep-ph/0408158 (Sngl Top)*
+ *       (with Francesco Tramontano)              *
+ *                                                *
+ *  Phys.Rev.D65:113007, hep-ph/0202176 (W,Z+2j)  *
+ *  Phys.Rev.D62:114012, hep-ph/0006304 (W,Z+bb)  *
+ *  Phys.Rev.D60:113006, hep-ph/9905386 (diboson) *
+ *                                                *
+ * On the web:  http://mcfm.fnal.gov/             *
+ **************************************************
+
+ * Using input file named input.DAT                                                               
+
+ * [Flags to specify the mode in which MCFM is run]                                          
+ *               200000            [nevtrequested] 
+ *                    F            [creatent] 
+ *                    F            [skipnt] 
+ *                    F            [dswhisto] 
+ *                    T            [writetop] 
+ *                    F            [writedat] 
+ *                    F            [writegnu] 
+ *                    T            [writeroot] 
+ *                    F            [writepwg] 
+
+ * [General options to specify the process and execution]                                    
+ *                  127            [nproc] 
+ *                 lord            [part] 
+ * test                            [runstring] 
+ *           13000.0000            [sqrts] 
+ *                    1            [ih1] 
+ *                    1            [ih2] 
+ *             125.0000            [hmass] 
+ *               0.5000            [scale] 
+ *               0.5000            [facscale] 
+ * m(3456)                         [dynamicscale] 
+ *                    F            [zerowidth] 
+ *                    F            [removebr] 
+ *                    4            [itmx1] 
+ *                10000            [ncall1] 
+ *                   10            [itmx2] 
+ *                10000            [ncall2] 
+ *                 1089            [ij] 
+ *                    F            [dryrun] 
+ *                    T            [Qflag] 
+ *                    T            [Gflag] 
+
+ * [Heavy quark masses]                                                                      
+ *             172.5000            [top mass] 
+ *               4.7500            [bottom mass] 
+ *               1.4050            [charm mass] 
+
+ * [Pdf selection]                                                                           
+ *              cteq6_l            [pdlabel] 
+ *                    4            [NGROUP] 
+ *                   46            [NSET] 
+ * NNPDF30_lo_as_0130              [LHAPDF group] 
+ *                    0            [LHAPDF set] 
+
+ * [Jet definition and event cuts]                                                           
+ *               2.5000            [m34min] 
+ *           13000.0000            [m34max] 
+ *               2.5000            [m56min] 
+ *           13000.0000            [m56max] 
+ *               0.0000            [m3456min] 
+ *           14000.0000            [m3456max] 
+ *                    T            [inclusive] 
+ *                 ankt            [algorithm] 
+ *              15.0000            [ptjetmin] 
+ *               0.0000            [etajetmin] 
+ *               5.0000            [etajetmax] 
+ *               0.4000            [Rcut] 
+ *                    T            [makecuts] 
+ *               3.0000            [leptpt] 
+ *               2.7000            [leptrap] 
+ *    0.000,   0.000                [leptveto] 
+ *               0.0000            [misspt] 
+ *               3.0000            [leptpt2] 
+ *               2.7000            [leptrap2] 
+ *    0.000,   0.000                [leptveto2] 
+ *               0.0000            [mtrans34cut] 
+ *               0.0000            [Rjlmin] 
+ *               0.0000            [Rllmin] 
+ *               0.0000            [delyjjmin] 
+ *                    F            [jetsopphem] 
+ *                    0            [lbjscheme] 
+ *               0.0000            [ptbjetmin] 
+ *              99.0000            [etabjetmax] 
+
+ * [Settings for photon processes]                                                           
+ *                    F            [frag] 
+ *             GdRG__LO            [fragset] 
+ *              80.0000            [frag_scale] 
+ *              20.0000            [gammpt] 
+ *               2.5000            [gammrap] 
+ *              20.0000            [gammpt2] 
+ *              20.0000            [gammpt3] 
+ *               0.0000            [Rgalmin] 
+ *               0.4000            [Rgagamin] 
+ *               0.4000            [Rgajetmin] 
+ *               0.4000            [cone_ang] 
+ *               0.5000            [epsilon_h] 
+
+ * [Anomalous couplings of the W and Z]                                                      
+ *               0.0000            [delg1_z] 
+ *               0.0000            [delk_z] 
+ *               0.0000            [delk_g] 
+ *               0.0000            [lambda_z] 
+ *               0.0000            [lambda_g] 
+ *               0.0000            [h1Z] 
+ *               0.0000            [h1gam] 
+ *               0.0000            [h2Z] 
+ *               0.0000            [h2gam] 
+ *               0.0000            [h3Z] 
+ *               0.0000            [h3gam] 
+ *               0.0000            [h4Z] 
+ *               0.0000            [h4gam] 
+ *               2.0000            [tevscale] 
+
+ * [Anomalous width of the Higgs]                                                            
+ *               1.0000            [Gamma_H/Gamma_H(SM)] 
+
+ * [How to resume/save a run]                                                                
+ *                    F            [readin] 
+ *                    F            [writeout] 
+ *                                 [ingridfile] 
+ *                                 [outgridfile] 
+
+ * [Technical parameters that should not normally be changed]
+
+ *                    F            [debug] 
+ *                    T            [verbose] 
+ *                    F            [new_pspace] 
+ *                    F            [virtonly] 
+ *                    F            [realonly] 
+ *                    T            [spira] 
+ *                    F            [noglue] 
+ *                    F            [ggonly] 
+ *                    F            [gqonly] 
+ *                    F            [omitgg] 
+ *                    F            [vanillafiles] 
+ *                    1            [nmin] 
+ *                    2            [nmax] 
+ *                    T            [clustering] 
+ *                    F            [realwt] 
+ *                    0            [colourchoice] 
+ *               0.0100            [rtsmin] 
+ *               0.0001            [cutoff] 
+ *               0.1000            [aii] 
+ *               0.1000            [aif] 
+ *               0.1000            [afi] 
+ *               1.0000            [aff] 
+ *               1.0000            [bfi] 
+ *               1.0000            [bff] 
+
+ Chooser:process chosen by nproc=         127
+
+ *************************** f(p1)+f(p2) --> ******************************************
+ * W^+(nu(p3)+e^+(p4)) + W^-(e^-(p5)+nu~(p6))                                         *
+ * [(gg->WW) squared]                                                                 *
+ **************************************************************************************
+
+
+ *******************************************
+ *     MCFM is calling LHAPDF              *
+ *                                         *
+ *   PDFname NNPDF30_lo_as_0130.LHpdf      *
+ *   PDFmember  0                          *
+ *******************************************
+
+LHAPDF 6.1.5 loading /cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf6/6.1.5-cms/share/LHAPDF/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130_0000.dat
+NNPDF30_lo_as_0130 PDF set, member #0, version 2; LHAPDF ID = 263000
+ ************** Electroweak parameters **************
+ *                                                  *
+ *  zmass(+)   91.1876000     wmass(+)  80.3990000  *
+ * zwidth(+)    2.4952000    wwidth(+)   2.1054000  *
+ *     Gf(+) 0.116639D-04   1/aemmz(+) 128.0000000  *
+ *     xw(+)    0.2311900      mtop(+) 172.5000000  *
+ *   gwsq       0.4246497       esq      0.0981748  *
+ * top width    1.4534254 (LO)                      *
+ *    mb        4.7500000        mc      1.4050000  *
+ *                                                  *
+ * Parameters marked (+) are input, others derived  *
+ ****************************************************
+
+ ****************** Higgs parameters ****************
+ *                                                  *
+ *   mass(H) =  125.00      width(H) =  0.41650E-02 *
+ *                                                  *
+ *              Br( H -> b bbar)  =   0.48068       *
+ *              Br( H -> tau tau) =   0.06185       *
+ *              Br( H -> W W)     =   0.00000       *
+ *              Br( H -> Z Z)     =   0.00000       *
+ *              Br( H -> gam gam) =   0.00251       *
+ *              Br( H -> Z gam)   =   0.00161       *
+ ****************************************************
+ *                                                  *
+ * Note: branching ratios reported here can be > 1  *
+ *       since the total Higgs width is calculated  *
+ *       at NLO but the BR calculation uses a       *
+ *       partial width at LO only.                  *
+ *                                                  *
+ ****************************************************
+
+ WARNING: Higgs decay H->WW is below threshold and
+ may not yield sensible results - check the number
+ of integration points
+
+ *******************************************
+ *     MCFM is calling LHAPDF              *
+ *                                         *
+ *   PDFname NNPDF30_lo_as_0130.LHpdf      *
+ *   PDFmember  0                          *
+ *******************************************
+
+LHAPDF 6.1.5 loading /cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf6/6.1.5-cms/share/LHAPDF/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130_0000.dat
+NNPDF30_lo_as_0130 PDF set, member #0, version 2; LHAPDF ID = 263000
+
+ ***************** CKM mixing matrix ****************
+ *                                                  *
+ *      Vud=.97425    Vus=.22530    Vub=.41300E-01  *
+ *      Vcd=.22500    Vcs=.98600    Vcb=.41100E-01  *
+ ****************************************************
+
+ ************* Strong coupling, alpha_s  ************
+ *                                                  *
+ *  Dynamic scale - alpha_s changed event-by-event  *
+ *       alpha_s (zmass)  0.13000266                *
+ *         (using 1-loop running of alpha_s)        *
+ ****************************************************
+
+ ****************************************
+ *     Cross section in femtobarns      *
+ ****************************************
+
+
+ input parameters for vegas:  ndim= 10  ncall=  10000.
+                              it=    0  itmx=    4
+                              nprn=  0  alph= 1.50
+                              mds=  0   nd= 100
+                              xl( 1)=   0.000     xu( 1)=   1.000    
+                              xl( 2)=   0.000     xu( 2)=   1.000    
+                              xl( 3)=   0.000     xu( 3)=   1.000    
+                              xl( 4)=   0.000     xu( 4)=   1.000    
+                              xl( 5)=   0.000     xu( 5)=   1.000    
+                              xl( 6)=   0.000     xu( 6)=   1.000    
+                              xl( 7)=   0.000     xu( 7)=   1.000    
+                              xl( 8)=   0.000     xu( 8)=   1.000    
+                              xl( 9)=   0.000     xu( 9)=   1.000    
+                              xl(10)=   0.000     xu(10)=   1.000    
+
+ ****************** Basic mass cuts *****************
+ *                                                  *
+ *              2.50  <   m34  < 13000.00           *
+ *              2.50  <   m56  < 13000.00           *
+ *             0.00  <   m3456  < 14000.00          *
+ ****************************************************
+
+ ****************** Generic cuts ********************
+ *                                                  *
+ *        pt(lepton)      >     3.00 GeV            *
+ *      |eta(lepton)|     <     2.70                *
+ *       pt(missing)      >     0.00 GeV            *
+ *     pt(2nd+ lepton)    >     3.00 GeV            *
+ *   |eta(2nd+ lepton)|   <     2.70                *
+ *  (3,4) transverse mass >     0.00 GeV            *
+ *      R(jet,lepton)     >     0.00                *
+ *     R(lepton,lepton)   >     0.00                *
+ * |eta(jet1)-eta(jet2)|  >     0.00                *
+ ****************************************************
+
+ ************** Dynamic scale choice ****************
+ *                                                  *
+ *                 RENORMALIZATION                  *
+ *       mu_ren  =  0.50 x m(3456)                  *
+ *                                                  *
+ *                  FACTORIZATION                   *
+ *       mu_fac  =  0.50 x m(3456)                  *
+ *                                                  *
+ ****************************************************
+ ****************************************************
+ *                                                  *
+ *  gg->WW box loop includes gens. 1 and 2          *
+ *  gg->WW box loop includes 3rd generation         *
+ *                                                  *
+ ****************************************************
+ ====================================================
+   This is QCDLoop - version 1.95                    
+   Authors: Keith Ellis and Giulia Zanderighi        
+   (ellis@fnal.gov, g.zanderighi1@physics.ox.ac.uk)  
+   For details see FERMILAB-PUB-07-633-T,OUTP-07/16P 
+   arXiv:0712.1851 [hep-ph], published in            
+   JHEP 0802:002,2008.                               
+ ====================================================
+ ====================================================
+   FF 2.0, a package to evaluate one-loop integrals
+ written by G. J. van Oldenborgh, NIKHEF-H, Amsterdam
+ ====================================================
+ for the algorithms used see preprint NIKHEF-H 89/17,
+ 'New Algorithms for One-loop Integrals', by G.J. van
+ Oldenborgh and J.A.M. Vermaseren, published in 
+ Zeitschrift fuer Physik C46(1990)425.
+ ====================================================
+ ffini: precx =    4.4408920985006262E-016
+ ffini: precc =    4.4408920985006262E-016
+ ffini: xalogm =    4.9406564584124654E-324
+ ffini: xclogm =    4.9406564584124654E-324
+ ====================================================
+   This is QCDLoop - version 1.95                    
+   Authors: Keith Ellis and Giulia Zanderighi        
+   (ellis@fnal.gov, g.zanderighi1@physics.ox.ac.uk)  
+   For details see FERMILAB-PUB-07-633-T,OUTP-07/16P 
+   arXiv:0712.1851 [hep-ph], published in            
+   JHEP 0802:002,2008.                               
+ ====================================================
+ ====================================================
+   This is QCDLoop - version 1.95                    
+   Authors: Keith Ellis and Giulia Zanderighi        
+   (ellis@fnal.gov, g.zanderighi1@physics.ox.ac.uk)  
+   For details see FERMILAB-PUB-07-633-T,OUTP-07/16P 
+   arXiv:0712.1851 [hep-ph], published in            
+   JHEP 0802:002,2008.                               
+ ====================================================
+
+************* Integration by Vegas (iteration   1) **************
+*                                                               *
+*  integral  =  49.922309       accum. integral =  49.922309    *
+*  std. dev. =  9.4835017       accum. std. dev =  9.4835017    *
+*   max. wt. =    4.87694                                       *
+*                                                               *
+**************   chi**2/iteration =  0.000       ****************
+
+
+************* Integration by Vegas (iteration   2) **************
+*                                                               *
+*  integral  =  43.023204       accum. integral =  43.486600    *
+*  std. dev. =  2.5447617       accum. std. dev =  2.4578135    *
+*   max. wt. =    4.87694                                       *
+*                                                               *
+**************   chi**2/iteration = 0.4888       ****************
+
+
+************* Integration by Vegas (iteration   3) **************
+*                                                               *
+*  integral  =  44.331151       accum. integral =  44.154298    *
+*  std. dev. =  1.2649256       accum. std. dev =  1.1247140    *
+*   max. wt. =    4.87694                                       *
+*                                                               *
+**************   chi**2/iteration = 0.2921       ****************
+
+
+************* Integration by Vegas (iteration   4) **************
+*                                                               *
+*  integral  =  42.840004       accum. integral =  43.166499    *
+*  std. dev. = 0.64661588       accum. std. dev = 0.56057577    *
+*   max. wt. =    4.87694                                       *
+*                                                               *
+**************   chi**2/iteration = 0.5360       ****************
+
+
+ input parameters for vegas:  ndim= 10  ncall=  10000.
+                              it=    5  itmx=   10
+                              nprn=  0  alph= 1.50
+                              mds=  0   nd= 100
+                              xl( 1)=   0.000     xu( 1)=   1.000    
+                              xl( 2)=   0.000     xu( 2)=   1.000    
+                              xl( 3)=   0.000     xu( 3)=   1.000    
+                              xl( 4)=   0.000     xu( 4)=   1.000    
+                              xl( 5)=   0.000     xu( 5)=   1.000    
+                              xl( 6)=   0.000     xu( 6)=   1.000    
+                              xl( 7)=   0.000     xu( 7)=   1.000    
+                              xl( 8)=   0.000     xu( 8)=   1.000    
+                              xl( 9)=   0.000     xu( 9)=   1.000    
+                              xl(10)=   0.000     xu(10)=   1.000    
+
+************* Integration by Vegas (iteration   1) **************
+*                                                               *
+*  integral  =  42.625455       accum. integral =  42.625455    *
+*  std. dev. = 0.47813582       accum. std. dev = 0.47813582    *
+*   max. wt. =   0.874606E-01                                   *
+*                                                               *
+**************   chi**2/iteration =  0.000       ****************
+
+ Writing out intermediate results for iteration           1
+
+************* Integration by Vegas (iteration   2) **************
+*                                                               *
+*  integral  =  43.369259       accum. integral =  43.023264    *
+*  std. dev. = 0.44591220       accum. std. dev = 0.32610480    *
+*   max. wt. =   0.144636                                       *
+*                                                               *
+**************   chi**2/iteration =  1.281       ****************
+
+ Writing out intermediate results for iteration           2
+
+************* Integration by Vegas (iteration   3) **************
+*                                                               *
+*  integral  =  43.429591       accum. integral =  43.116383    *
+*  std. dev. = 0.59807190       accum. std. dev = 0.28630935    *
+*   max. wt. =   0.309889                                       *
+*                                                               *
+**************   chi**2/iteration = 0.8209       ****************
+
+ Writing out intermediate results for iteration           3
+
+************* Integration by Vegas (iteration   4) **************
+*                                                               *
+*  integral  =  43.186976       accum. integral =  43.130377    *
+*  std. dev. = 0.57580775       accum. std. dev = 0.25636621    *
+*   max. wt. =   0.309889                                       *
+*                                                               *
+**************   chi**2/iteration = 0.5522       ****************
+
+ Writing out intermediate results for iteration           4
+
+************* Integration by Vegas (iteration   5) **************
+*                                                               *
+*  integral  =  43.047085       accum. integral =  43.110585    *
+*  std. dev. = 0.45921303       accum. std. dev = 0.22384567    *
+*   max. wt. =   0.309889                                       *
+*                                                               *
+**************   chi**2/iteration = 0.4208       ****************
+
+ Writing out intermediate results for iteration           5
+
+************* Integration by Vegas (iteration   6) **************
+*                                                               *
+*  integral  =  44.287417       accum. integral =  43.360943    *
+*  std. dev. = 0.43061051       accum. std. dev = 0.19861319    *
+*   max. wt. =   0.309889                                       *
+*                                                               *
+**************   chi**2/iteration =  1.510       ****************
+
+ Writing out intermediate results for iteration           6
+
+************* Integration by Vegas (iteration   7) **************
+*                                                               *
+*  integral  =  43.050321       accum. integral =  43.298431    *
+*  std. dev. = 0.39568486       accum. std. dev = 0.17750652    *
+*   max. wt. =   0.309889                                       *
+*                                                               *
+**************   chi**2/iteration =  1.341       ****************
+
+ Writing out intermediate results for iteration           7
+
+************* Integration by Vegas (iteration   8) **************
+*                                                               *
+*  integral  =  43.525046       accum. integral =  43.338130    *
+*  std. dev. = 0.38516732       accum. std. dev = 0.16121057    *
+*   max. wt. =   0.309889                                       *
+*                                                               *
+**************   chi**2/iteration =  1.190       ****************
+
+ Writing out intermediate results for iteration           8
+
+************* Integration by Vegas (iteration   9) **************
+*                                                               *
+*  integral  =  43.651498       accum. integral =  43.360533    *
+*  std. dev. = 0.58098627       accum. std. dev = 0.15534130    *
+*   max. wt. =   0.446628                                       *
+*                                                               *
+**************   chi**2/iteration =  1.076       ****************
+
+ Writing out intermediate results for iteration           9
+
+************* Integration by Vegas (iteration  10) **************
+*                                                               *
+*  integral  =  43.449255       accum. integral =  43.366678    *
+*  std. dev. = 0.56940627       accum. std. dev = 0.14986441    *
+*   max. wt. =   0.446628                                       *
+*                                                               *
+**************   chi**2/iteration = 0.9587       ****************
+
+ Generate events :
+ Trying to unweight events ...
+ Events generated so far:           95
+ Events generated so far:          183
+ Events generated so far:          287
+ Events generated so far:          400
+ Events generated so far:          515
+ Events generated so far:          626
+ Events generated so far:          740
+ Events generated so far:          826
+ Events generated so far:          903
+ Events generated so far:         1000
+ Events generated so far:         1101
+ Events generated so far:         1195
+ Events generated so far:         1290
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.4025807487116118     
+ Events generated so far:         1396
+ Events generated so far:         1505
+ Events generated so far:         1627
+ Events generated so far:         1717
+ Events generated so far:         1813
+ Events generated so far:         1900
+ Events generated so far:         2003
+ Events generated so far:         2115
+ Events generated so far:         2225
+ Events generated so far:         2337
+ Events generated so far:         2440
+ Events generated so far:         2539
+ Events generated so far:         2638
+ Events generated so far:         2744
+ Events generated so far:         2857
+ Events generated so far:         2959
+ Events generated so far:         3052
+ Events generated so far:         3139
+ Events generated so far:         3238
+ Events generated so far:         3324
+ Events generated so far:         3424
+ Events generated so far:         3532
+ Events generated so far:         3639
+ Events generated so far:         3736
+ Events generated so far:         3821
+ Events generated so far:         3912
+ Events generated so far:         4008
+ Events generated so far:         4102
+ Events generated so far:         4193
+ Events generated so far:         4284
+ Events generated so far:         4388
+ Events generated so far:         4471
+ Events generated so far:         4576
+ Events generated so far:         4661
+ Events generated so far:         4752
+ WARNING : lowint : event with |weight| > 1. |weight| =    9.5512448474015592     
+ Events generated so far:         4847
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.7727862147036815     
+ Events generated so far:         4911
+ Events generated so far:         5006
+ Events generated so far:         5098
+ Events generated so far:         5203
+ Events generated so far:         5290
+ Events generated so far:         5389
+ Events generated so far:         5485
+ Events generated so far:         5595
+ Events generated so far:         5692
+ Events generated so far:         5793
+ Events generated so far:         5886
+ Events generated so far:         5971
+ WARNING : lowint : event with |weight| > 1. |weight| =    6.5311841032990312     
+ Events generated so far:         6073
+ Events generated so far:         6194
+ Events generated so far:         6279
+ Events generated so far:         6376
+ Events generated so far:         6482
+ Events generated so far:         6572
+ WARNING : lowint : event with |weight| > 1. |weight| =    5.5554130709856633     
+ Events generated so far:         6691
+ Events generated so far:         6789
+ Events generated so far:         6883
+ Events generated so far:         6994
+ Events generated so far:         7082
+ Events generated so far:         7166
+ Events generated so far:         7262
+ Events generated so far:         7370
+ Events generated so far:         7483
+ Events generated so far:         7588
+ Events generated so far:         7706
+ Events generated so far:         7809
+ Events generated so far:         7922
+ Events generated so far:         8003
+ Events generated so far:         8110
+ Events generated so far:         8199
+ Events generated so far:         8290
+ Events generated so far:         8392
+ Events generated so far:         8476
+ Events generated so far:         8583
+ Events generated so far:         8681
+ Events generated so far:         8768
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.1902022842986910     
+ Events generated so far:         8860
+ Events generated so far:         8940
+ Events generated so far:         9046
+ Events generated so far:         9146
+ Events generated so far:         9259
+ Events generated so far:         9379
+ Events generated so far:         9488
+ Events generated so far:         9586
+ Events generated so far:         9666
+ Events generated so far:         9767
+ Events generated so far:         9875
+ Events generated so far:         9980
+ Events generated so far:        10097
+ Events generated so far:        10202
+ Events generated so far:        10289
+ Events generated so far:        10385
+ Events generated so far:        10479
+ Events generated so far:        10559
+ Events generated so far:        10664
+ Events generated so far:        10758
+ Events generated so far:        10867
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.6175136076360834     
+ Events generated so far:        10963
+ Events generated so far:        11071
+ Events generated so far:        11178
+ Events generated so far:        11278
+ Events generated so far:        11379
+ Events generated so far:        11488
+ Events generated so far:        11573
+ Events generated so far:        11674
+ Events generated so far:        11749
+ Events generated so far:        11844
+ Events generated so far:        11936
+ Events generated so far:        12019
+ Events generated so far:        12127
+ Events generated so far:        12231
+ Events generated so far:        12356
+ Events generated so far:        12478
+ Events generated so far:        12577
+ Events generated so far:        12679
+ Events generated so far:        12759
+ Events generated so far:        12865
+ Events generated so far:        12953
+ Events generated so far:        13029
+ Events generated so far:        13118
+ Events generated so far:        13216
+ Events generated so far:        13302
+ Events generated so far:        13406
+ Events generated so far:        13502
+ Events generated so far:        13596
+ Events generated so far:        13686
+ Events generated so far:        13778
+ Events generated so far:        13884
+ Events generated so far:        13972
+ Events generated so far:        14066
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.9709331576978173     
+ Events generated so far:        14165
+ Events generated so far:        14277
+ Events generated so far:        14378
+ Events generated so far:        14476
+ Events generated so far:        14596
+ Events generated so far:        14704
+ Events generated so far:        14789
+ Events generated so far:        14889
+ Events generated so far:        14978
+ Events generated so far:        15069
+ Events generated so far:        15159
+ Events generated so far:        15244
+ Events generated so far:        15353
+ Events generated so far:        15451
+ Events generated so far:        15542
+ Events generated so far:        15637
+ Events generated so far:        15741
+ Events generated so far:        15853
+ Events generated so far:        15946
+ Events generated so far:        16045
+ Events generated so far:        16171
+ Events generated so far:        16264
+ Events generated so far:        16356
+ Events generated so far:        16449
+ Events generated so far:        16537
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.1569946008114405     
+ Events generated so far:        16618
+ Events generated so far:        16706
+ Events generated so far:        16816
+ Events generated so far:        16905
+ Events generated so far:        17007
+ Events generated so far:        17098
+ Events generated so far:        17210
+ Events generated so far:        17300
+ Events generated so far:        17393
+ Events generated so far:        17493
+ Events generated so far:        17596
+ Events generated so far:        17685
+ Events generated so far:        17792
+ Events generated so far:        17915
+ Events generated so far:        18028
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.7214017209242871     
+ Events generated so far:        18123
+ Events generated so far:        18214
+ Events generated so far:        18303
+ Events generated so far:        18408
+ Events generated so far:        18515
+ Events generated so far:        18605
+ Events generated so far:        18698
+ Events generated so far:        18795
+ Events generated so far:        18877
+ Events generated so far:        18964
+ Events generated so far:        19073
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.1378707006373190     
+ Events generated so far:        19157
+ Events generated so far:        19237
+ Events generated so far:        19345
+ Events generated so far:        19444
+ Events generated so far:        19548
+ Events generated so far:        19639
+ Events generated so far:        19726
+ Events generated so far:        19827
+ Events generated so far:        19926
+ Events generated so far:        20019
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.3128296039977867     
+ Events generated so far:        20113
+ Events generated so far:        20214
+ Events generated so far:        20302
+ Events generated so far:        20384
+ Events generated so far:        20475
+ Events generated so far:        20570
+ Events generated so far:        20681
+ Events generated so far:        20788
+ Events generated so far:        20880
+ Events generated so far:        20969
+ Events generated so far:        21068
+ Events generated so far:        21157
+ Events generated so far:        21250
+ Events generated so far:        21340
+ Events generated so far:        21453
+ Events generated so far:        21541
+ Events generated so far:        21633
+ Events generated so far:        21719
+ Events generated so far:        21811
+ Events generated so far:        21914
+ Events generated so far:        22001
+ Events generated so far:        22089
+ Events generated so far:        22188
+ Events generated so far:        22292
+ Events generated so far:        22380
+ Events generated so far:        22471
+ Events generated so far:        22566
+ Events generated so far:        22643
+ Events generated so far:        22746
+ Events generated so far:        22840
+ Events generated so far:        22933
+ Events generated so far:        23039
+ Events generated so far:        23125
+ Events generated so far:        23226
+ Events generated so far:        23316
+ Events generated so far:        23409
+ Events generated so far:        23514
+ Events generated so far:        23634
+ Events generated so far:        23711
+ Events generated so far:        23815
+ Events generated so far:        23907
+ Events generated so far:        23999
+ Events generated so far:        24093
+ Events generated so far:        24185
+ Events generated so far:        24286
+ Events generated so far:        24364
+ Events generated so far:        24464
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.1894976498199108     
+ Events generated so far:        24559
+ Events generated so far:        24674
+ Events generated so far:        24779
+ Events generated so far:        24874
+ Events generated so far:        24969
+ Events generated so far:        25057
+ Events generated so far:        25165
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.3589361994798088     
+ Events generated so far:        25261
+ Events generated so far:        25354
+ Events generated so far:        25457
+ Events generated so far:        25568
+ Events generated so far:        25678
+ Events generated so far:        25772
+ Events generated so far:        25869
+ Events generated so far:        25966
+ Events generated so far:        26055
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.6010878545076221     
+ Events generated so far:        26157
+ Events generated so far:        26263
+ Events generated so far:        26359
+ Events generated so far:        26456
+ Events generated so far:        26555
+ Events generated so far:        26637
+ Events generated so far:        26730
+ Events generated so far:        26841
+ Events generated so far:        26937
+ Events generated so far:        27038
+ Events generated so far:        27135
+ Events generated so far:        27232
+ Events generated so far:        27337
+ Events generated so far:        27454
+ Events generated so far:        27555
+ Events generated so far:        27649
+ Events generated so far:        27732
+ Events generated so far:        27833
+ Events generated so far:        27927
+ Events generated so far:        28035
+ Events generated so far:        28142
+ Events generated so far:        28231
+ Events generated so far:        28323
+ Events generated so far:        28415
+ Events generated so far:        28519
+ Events generated so far:        28611
+ Events generated so far:        28708
+ Events generated so far:        28798
+ Events generated so far:        28900
+ Events generated so far:        29017
+ Events generated so far:        29116
+ Events generated so far:        29211
+ Events generated so far:        29297
+ Events generated so far:        29388
+ Events generated so far:        29493
+ Events generated so far:        29594
+ Events generated so far:        29689
+ Events generated so far:        29789
+ Events generated so far:        29891
+ Events generated so far:        29990
+ Events generated so far:        30097
+ Events generated so far:        30209
+ Events generated so far:        30310
+ Events generated so far:        30415
+ Events generated so far:        30510
+ Events generated so far:        30598
+ Events generated so far:        30700
+ Events generated so far:        30789
+ Events generated so far:        30882
+ Events generated so far:        30963
+ Events generated so far:        31085
+ Events generated so far:        31187
+ Events generated so far:        31303
+ Events generated so far:        31405
+ Events generated so far:        31497
+ Events generated so far:        31598
+ Events generated so far:        31700
+ Events generated so far:        31790
+ Events generated so far:        31876
+ Events generated so far:        31979
+ Events generated so far:        32075
+ Events generated so far:        32174
+ Events generated so far:        32275
+ Events generated so far:        32385
+ Events generated so far:        32480
+ Events generated so far:        32564
+ Events generated so far:        32661
+ Events generated so far:        32757
+ Events generated so far:        32861
+ Events generated so far:        32951
+ Events generated so far:        33056
+ Events generated so far:        33143
+ Events generated so far:        33242
+ Events generated so far:        33339
+ Events generated so far:        33418
+ Events generated so far:        33523
+ Events generated so far:        33617
+ Events generated so far:        33727
+ Events generated so far:        33841
+ Events generated so far:        33941
+ Events generated so far:        34039
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.3419678081610626     
+ Events generated so far:        34132
+ Events generated so far:        34240
+ Events generated so far:        34362
+ Events generated so far:        34461
+ Events generated so far:        34564
+ Events generated so far:        34663
+ Events generated so far:        34768
+ Events generated so far:        34859
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.2642212515231777     
+ Events generated so far:        34945
+ Events generated so far:        35058
+ Events generated so far:        35147
+ Events generated so far:        35245
+ Events generated so far:        35342
+ Events generated so far:        35441
+ Events generated so far:        35534
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.2416863144624166     
+ Events generated so far:        35633
+ Events generated so far:        35727
+ Events generated so far:        35817
+ Events generated so far:        35903
+ Events generated so far:        36009
+ Events generated so far:        36093
+ Events generated so far:        36194
+ Events generated so far:        36305
+ Events generated so far:        36394
+ Events generated so far:        36500
+ Events generated so far:        36593
+ Events generated so far:        36687
+ Events generated so far:        36781
+ Events generated so far:        36876
+ Events generated so far:        36967
+ Events generated so far:        37067
+ Events generated so far:        37152
+ Events generated so far:        37257
+ Events generated so far:        37352
+ Events generated so far:        37448
+ Events generated so far:        37558
+ Events generated so far:        37657
+ Events generated so far:        37751
+ Events generated so far:        37853
+ Events generated so far:        37954
+ Events generated so far:        38050
+ Events generated so far:        38164
+ Events generated so far:        38263
+ Events generated so far:        38342
+ Events generated so far:        38433
+ Events generated so far:        38526
+ Events generated so far:        38607
+ Events generated so far:        38719
+ Events generated so far:        38818
+ Events generated so far:        38906
+ Events generated so far:        39010
+ Events generated so far:        39110
+ Events generated so far:        39216
+ Events generated so far:        39318
+ Events generated so far:        39422
+ Events generated so far:        39514
+ Events generated so far:        39615
+ Events generated so far:        39724
+ Events generated so far:        39823
+ Events generated so far:        39923
+ Events generated so far:        40020
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.7612953339525554     
+ Events generated so far:        40114
+ Events generated so far:        40216
+ Events generated so far:        40310
+ Events generated so far:        40400
+ Events generated so far:        40494
+ Events generated so far:        40588
+ Events generated so far:        40677
+ Events generated so far:        40770
+ Events generated so far:        40874
+ Events generated so far:        40962
+ Events generated so far:        41058
+ Events generated so far:        41153
+ Events generated so far:        41237
+ Events generated so far:        41317
+ Events generated so far:        41417
+ Events generated so far:        41532
+ Events generated so far:        41621
+ Events generated so far:        41706
+ Events generated so far:        41788
+ Events generated so far:        41883
+ Events generated so far:        41987
+ Events generated so far:        42083
+ Events generated so far:        42181
+ Events generated so far:        42298
+ Events generated so far:        42401
+ Events generated so far:        42489
+ Events generated so far:        42576
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.4694131560861996     
+ Events generated so far:        42668
+ Events generated so far:        42762
+ Events generated so far:        42853
+ Events generated so far:        42956
+ Events generated so far:        43050
+ Events generated so far:        43145
+ Events generated so far:        43238
+ Events generated so far:        43312
+ Events generated so far:        43411
+ Events generated so far:        43509
+ Events generated so far:        43613
+ Events generated so far:        43722
+ Events generated so far:        43813
+ Events generated so far:        43910
+ Events generated so far:        44025
+ Events generated so far:        44104
+ Events generated so far:        44182
+ Events generated so far:        44267
+ Events generated so far:        44386
+ Events generated so far:        44488
+ Events generated so far:        44602
+ Events generated so far:        44686
+ Events generated so far:        44775
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.0797795397109851     
+ Events generated so far:        44865
+ Events generated so far:        44969
+ Events generated so far:        45073
+ Events generated so far:        45164
+ Events generated so far:        45264
+ Events generated so far:        45363
+ Events generated so far:        45475
+ Events generated so far:        45580
+ Events generated so far:        45673
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.2431763120970900     
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.4591442231147089     
+ Events generated so far:        45777
+ Events generated so far:        45878
+ Events generated so far:        45970
+ Events generated so far:        46062
+ Events generated so far:        46162
+ Events generated so far:        46268
+ Events generated so far:        46363
+ Events generated so far:        46461
+ Events generated so far:        46548
+ Events generated so far:        46643
+ Events generated so far:        46729
+ Events generated so far:        46847
+ Events generated so far:        46936
+ Events generated so far:        47018
+ Events generated so far:        47117
+ Events generated so far:        47217
+ Events generated so far:        47311
+ Events generated so far:        47429
+ Events generated so far:        47524
+ Events generated so far:        47630
+ Events generated so far:        47733
+ Events generated so far:        47824
+ Events generated so far:        47916
+ Events generated so far:        48008
+ Events generated so far:        48104
+ Events generated so far:        48184
+ Events generated so far:        48280
+ Events generated so far:        48383
+ Events generated so far:        48471
+ Events generated so far:        48573
+ Events generated so far:        48674
+ Events generated so far:        48758
+ Events generated so far:        48850
+ Events generated so far:        48947
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.6187682281151392     
+ Events generated so far:        49032
+ Events generated so far:        49132
+ Events generated so far:        49216
+ Events generated so far:        49320
+ Events generated so far:        49420
+ Events generated so far:        49521
+ Events generated so far:        49613
+ Events generated so far:        49708
+ Events generated so far:        49790
+ Events generated so far:        49891
+ Events generated so far:        49999
+ Events generated so far:        50102
+ Events generated so far:        50203
+ Events generated so far:        50308
+ Events generated so far:        50399
+ Events generated so far:        50517
+ Events generated so far:        50605
+ Events generated so far:        50713
+ Events generated so far:        50823
+ Events generated so far:        50922
+ Events generated so far:        51013
+ Events generated so far:        51107
+ Events generated so far:        51198
+ Events generated so far:        51286
+ Events generated so far:        51384
+ Events generated so far:        51480
+ Events generated so far:        51575
+ Events generated so far:        51659
+ Events generated so far:        51751
+ Events generated so far:        51865
+ Events generated so far:        51969
+ Events generated so far:        52085
+ Events generated so far:        52175
+ Events generated so far:        52272
+ Events generated so far:        52366
+ Events generated so far:        52457
+ Events generated so far:        52550
+ Events generated so far:        52632
+ Events generated so far:        52742
+ Events generated so far:        52834
+ WARNING : lowint : event with |weight| > 1. |weight| =    3.6120664945487611     
+ Events generated so far:        52925
+ Events generated so far:        53011
+ Events generated so far:        53097
+ Events generated so far:        53193
+ Events generated so far:        53301
+ Events generated so far:        53389
+ Events generated so far:        53488
+ Events generated so far:        53586
+ Events generated so far:        53681
+ Events generated so far:        53789
+ Events generated so far:        53888
+ Events generated so far:        53963
+ Events generated so far:        54055
+ Events generated so far:        54140
+ Events generated so far:        54246
+ Events generated so far:        54352
+ Events generated so far:        54443
+ Events generated so far:        54546
+ Events generated so far:        54646
+ Events generated so far:        54751
+ Events generated so far:        54843
+ Events generated so far:        54939
+ Events generated so far:        55042
+ Events generated so far:        55153
+ Events generated so far:        55232
+ Events generated so far:        55324
+ Events generated so far:        55415
+ Events generated so far:        55507
+ Events generated so far:        55607
+ Events generated so far:        55685
+ Events generated so far:        55783
+ Events generated so far:        55877
+ Events generated so far:        55988
+ Events generated so far:        56097
+ Events generated so far:        56192
+ Events generated so far:        56298
+ Events generated so far:        56392
+ Events generated so far:        56477
+ Events generated so far:        56557
+ Events generated so far:        56663
+ Events generated so far:        56770
+ Events generated so far:        56870
+ Events generated so far:        56961
+ Events generated so far:        57059
+ Events generated so far:        57162
+ Events generated so far:        57243
+ Events generated so far:        57347
+ Events generated so far:        57453
+ Events generated so far:        57540
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.4626266162970876     
+ Events generated so far:        57627
+ Events generated so far:        57726
+ Events generated so far:        57800
+ Events generated so far:        57888
+ Events generated so far:        57980
+ Events generated so far:        58084
+ Events generated so far:        58207
+ Events generated so far:        58304
+ Events generated so far:        58406
+ Events generated so far:        58506
+ Events generated so far:        58615
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.2551508260825743     
+ Events generated so far:        58728
+ Events generated so far:        58829
+ Events generated so far:        58923
+ Events generated so far:        59049
+ Events generated so far:        59149
+ Events generated so far:        59254
+ Events generated so far:        59356
+ Events generated so far:        59459
+ Events generated so far:        59560
+ WARNING : lowint : event with |weight| > 1. |weight| =    5.2327940794133969     
+ Events generated so far:        59660
+ Events generated so far:        59755
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.6468103745317197     
+ Events generated so far:        59854
+ Events generated so far:        59954
+ Events generated so far:        60058
+ Events generated so far:        60152
+ Events generated so far:        60232
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.1621974665747601     
+ Events generated so far:        60307
+ Events generated so far:        60406
+ Events generated so far:        60502
+ Events generated so far:        60608
+ Events generated so far:        60723
+ Events generated so far:        60810
+ Events generated so far:        60880
+ Events generated so far:        60983
+ Events generated so far:        61075
+ Events generated so far:        61179
+ Events generated so far:        61271
+ Events generated so far:        61380
+ Events generated so far:        61469
+ Events generated so far:        61568
+ Events generated so far:        61655
+ Events generated so far:        61759
+ Events generated so far:        61857
+ Events generated so far:        61961
+ Events generated so far:        62058
+ Events generated so far:        62150
+ Events generated so far:        62239
+ Events generated so far:        62343
+ Events generated so far:        62443
+ WARNING : lowint : event with |weight| > 1. |weight| =    3.1525511417297021     
+ Events generated so far:        62537
+ Events generated so far:        62625
+ Events generated so far:        62716
+ Events generated so far:        62830
+ Events generated so far:        62921
+ Events generated so far:        63018
+ Events generated so far:        63116
+ Events generated so far:        63216
+ Events generated so far:        63305
+ Events generated so far:        63386
+ Events generated so far:        63496
+ Events generated so far:        63597
+ Events generated so far:        63707
+ Events generated so far:        63818
+ Events generated so far:        63905
+ Events generated so far:        63983
+ Events generated so far:        64072
+ Events generated so far:        64169
+ Events generated so far:        64271
+ Events generated so far:        64356
+ Events generated so far:        64467
+ Events generated so far:        64584
+ Events generated so far:        64670
+ Events generated so far:        64760
+ Events generated so far:        64874
+ Events generated so far:        64967
+ Events generated so far:        65083
+ Events generated so far:        65170
+ Events generated so far:        65271
+ Events generated so far:        65357
+ Events generated so far:        65452
+ Events generated so far:        65553
+ Events generated so far:        65657
+ Events generated so far:        65762
+ Events generated so far:        65859
+ Events generated so far:        65958
+ Events generated so far:        66057
+ Events generated so far:        66137
+ Events generated so far:        66234
+ Events generated so far:        66338
+ Events generated so far:        66434
+ Events generated so far:        66519
+ Events generated so far:        66633
+ Events generated so far:        66720
+ Events generated so far:        66821
+ Events generated so far:        66917
+ Events generated so far:        67014
+ Events generated so far:        67106
+ Events generated so far:        67198
+ Events generated so far:        67296
+ Events generated so far:        67393
+ Events generated so far:        67522
+ Events generated so far:        67622
+ Events generated so far:        67716
+ Events generated so far:        67811
+ Events generated so far:        67897
+ Events generated so far:        68008
+ Events generated so far:        68091
+ Events generated so far:        68166
+ Events generated so far:        68255
+ Events generated so far:        68344
+ Events generated so far:        68442
+ Events generated so far:        68528
+ Events generated so far:        68642
+ WARNING : lowint : event with |weight| > 1. |weight| =    3.5156146516712559     
+ Events generated so far:        68749
+ Events generated so far:        68842
+ Events generated so far:        68929
+ Events generated so far:        69045
+ Events generated so far:        69136
+ Events generated so far:        69231
+ Events generated so far:        69314
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.7125629124780282     
+ Events generated so far:        69402
+ Events generated so far:        69500
+ Events generated so far:        69591
+ Events generated so far:        69707
+ Events generated so far:        69809
+ Events generated so far:        69911
+ Events generated so far:        70011
+ Events generated so far:        70090
+ Events generated so far:        70189
+ Events generated so far:        70304
+ Events generated so far:        70393
+ Events generated so far:        70478
+ Events generated so far:        70562
+ Events generated so far:        70663
+ Events generated so far:        70753
+ Events generated so far:        70849
+ Events generated so far:        70947
+ Events generated so far:        71042
+ Events generated so far:        71123
+ Events generated so far:        71219
+ Events generated so far:        71318
+ Events generated so far:        71408
+ Events generated so far:        71501
+ Events generated so far:        71611
+ Events generated so far:        71708
+ Events generated so far:        71811
+ Events generated so far:        71904
+ Events generated so far:        72015
+ Events generated so far:        72112
+ Events generated so far:        72208
+ Events generated so far:        72299
+ Events generated so far:        72376
+ Events generated so far:        72482
+ Events generated so far:        72577
+ Events generated so far:        72679
+ Events generated so far:        72778
+ Events generated so far:        72865
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.2824909401472009     
+ Events generated so far:        72964
+ Events generated so far:        73064
+ Events generated so far:        73156
+ Events generated so far:        73261
+ Events generated so far:        73363
+ Events generated so far:        73454
+ Events generated so far:        73554
+ Events generated so far:        73657
+ Events generated so far:        73748
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.3129602963241398     
+ Events generated so far:        73871
+ Events generated so far:        73973
+ Events generated so far:        74074
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.1761402189245567     
+ Events generated so far:        74166
+ Events generated so far:        74265
+ Events generated so far:        74362
+ Events generated so far:        74446
+ Events generated so far:        74530
+ WARNING : lowint : event with |weight| > 1. |weight| =    3.9938882642590356     
+ Events generated so far:        74649
+ Events generated so far:        74751
+ Events generated so far:        74837
+ Events generated so far:        74930
+ Events generated so far:        75022
+ Events generated so far:        75103
+ Events generated so far:        75202
+ Events generated so far:        75300
+ Events generated so far:        75415
+ Events generated so far:        75517
+ Events generated so far:        75636
+ Events generated so far:        75726
+ Events generated so far:        75835
+ Events generated so far:        75933
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.7140922428406997     
+ Events generated so far:        76038
+ Events generated so far:        76150
+ Events generated so far:        76247
+ Events generated so far:        76369
+ Events generated so far:        76454
+ Events generated so far:        76546
+ Events generated so far:        76642
+ Events generated so far:        76721
+ Events generated so far:        76813
+ Events generated so far:        76897
+ Events generated so far:        77002
+ Events generated so far:        77099
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.4180476607808576     
+ Events generated so far:        77201
+ Events generated so far:        77293
+ Events generated so far:        77390
+ Events generated so far:        77485
+ Events generated so far:        77584
+ Events generated so far:        77673
+ Events generated so far:        77787
+ Events generated so far:        77880
+ Events generated so far:        77989
+ Events generated so far:        78081
+ Events generated so far:        78195
+ Events generated so far:        78299
+ Events generated so far:        78406
+ Events generated so far:        78494
+ Events generated so far:        78605
+ Events generated so far:        78697
+ Events generated so far:        78795
+ Events generated so far:        78891
+ Events generated so far:        78998
+ Events generated so far:        79086
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.1485501971876728     
+ Events generated so far:        79186
+ Events generated so far:        79278
+ Events generated so far:        79378
+ Events generated so far:        79461
+ Events generated so far:        79560
+ Events generated so far:        79651
+ Events generated so far:        79757
+ Events generated so far:        79845
+ Events generated so far:        79937
+ Events generated so far:        80029
+ Events generated so far:        80140
+ Events generated so far:        80254
+ Events generated so far:        80352
+ Events generated so far:        80446
+ Events generated so far:        80550
+ Events generated so far:        80647
+ Events generated so far:        80733
+ Events generated so far:        80837
+ Events generated so far:        80941
+ Events generated so far:        81037
+ Events generated so far:        81127
+ Events generated so far:        81222
+ Events generated so far:        81316
+ Events generated so far:        81411
+ Events generated so far:        81502
+ Events generated so far:        81573
+ Events generated so far:        81664
+ Events generated so far:        81748
+ Events generated so far:        81836
+ Events generated so far:        81924
+ Events generated so far:        82006
+ Events generated so far:        82126
+ Events generated so far:        82212
+ Events generated so far:        82303
+ Events generated so far:        82397
+ Events generated so far:        82482
+ Events generated so far:        82572
+ Events generated so far:        82683
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.8083791620552252     
+ Events generated so far:        82782
+ Events generated so far:        82869
+ Events generated so far:        82956
+ Events generated so far:        83043
+ Events generated so far:        83128
+ Events generated so far:        83244
+ Events generated so far:        83326
+ Events generated so far:        83426
+ Events generated so far:        83515
+ Events generated so far:        83607
+ Events generated so far:        83710
+ Events generated so far:        83802
+ Events generated so far:        83906
+ Events generated so far:        83985
+ Events generated so far:        84096
+ Events generated so far:        84196
+ Events generated so far:        84288
+ Events generated so far:        84379
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.4589015388077646     
+ Events generated so far:        84480
+ Events generated so far:        84570
+ Events generated so far:        84658
+ Events generated so far:        84752
+ Events generated so far:        84850
+ Events generated so far:        84939
+ Events generated so far:        85041
+ Events generated so far:        85131
+ Events generated so far:        85223
+ Events generated so far:        85313
+ Events generated so far:        85412
+ Events generated so far:        85490
+ Events generated so far:        85597
+ Events generated so far:        85709
+ Events generated so far:        85798
+ Events generated so far:        85893
+ Events generated so far:        85991
+ Events generated so far:        86083
+ Events generated so far:        86190
+ Events generated so far:        86302
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.6205393053891228     
+ Events generated so far:        86410
+ Events generated so far:        86491
+ Events generated so far:        86593
+ Events generated so far:        86664
+ Events generated so far:        86756
+ Events generated so far:        86847
+ Events generated so far:        86950
+ WARNING : lowint : event with |weight| > 1. |weight| =    3.0297179201002526     
+ Events generated so far:        87056
+ Events generated so far:        87156
+ Events generated so far:        87243
+ Events generated so far:        87338
+ Events generated so far:        87454
+ Events generated so far:        87554
+ Events generated so far:        87660
+ Events generated so far:        87763
+ Events generated so far:        87857
+ Events generated so far:        87955
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.0383484153334501     
+ Events generated so far:        88041
+ Events generated so far:        88158
+ Events generated so far:        88252
+ Events generated so far:        88346
+ Events generated so far:        88439
+ Events generated so far:        88545
+ Events generated so far:        88629
+ Events generated so far:        88722
+ Events generated so far:        88823
+ Events generated so far:        88940
+ Events generated so far:        89036
+ Events generated so far:        89132
+ Events generated so far:        89226
+ Events generated so far:        89335
+ Events generated so far:        89433
+ Events generated so far:        89522
+ Events generated so far:        89609
+ Events generated so far:        89710
+ Events generated so far:        89818
+ Events generated so far:        89913
+ Events generated so far:        90007
+ Events generated so far:        90102
+ Events generated so far:        90197
+ Events generated so far:        90291
+ Events generated so far:        90406
+ Events generated so far:        90503
+ Events generated so far:        90590
+ Events generated so far:        90686
+ Events generated so far:        90771
+ Events generated so far:        90849
+ Events generated so far:        90935
+ Events generated so far:        91038
+ Events generated so far:        91123
+ Events generated so far:        91222
+ Events generated so far:        91330
+ Events generated so far:        91436
+ Events generated so far:        91542
+ Events generated so far:        91642
+ Events generated so far:        91754
+ Events generated so far:        91837
+ Events generated so far:        91920
+ Events generated so far:        92021
+ Events generated so far:        92120
+ Events generated so far:        92231
+ Events generated so far:        92325
+ Events generated so far:        92423
+ Events generated so far:        92513
+ Events generated so far:        92611
+ Events generated so far:        92703
+ Events generated so far:        92822
+ Events generated so far:        92917
+ Events generated so far:        93034
+ Events generated so far:        93137
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.3327591924653865     
+ Events generated so far:        93229
+ Events generated so far:        93334
+ Events generated so far:        93437
+ Events generated so far:        93536
+ Events generated so far:        93630
+ Events generated so far:        93722
+ Events generated so far:        93826
+ Events generated so far:        93923
+ Events generated so far:        94021
+ Events generated so far:        94114
+ Events generated so far:        94224
+ Events generated so far:        94314
+ Events generated so far:        94421
+ Events generated so far:        94514
+ Events generated so far:        94608
+ Events generated so far:        94711
+ Events generated so far:        94805
+ Events generated so far:        94906
+ Events generated so far:        95024
+ Events generated so far:        95116
+ Events generated so far:        95224
+ Events generated so far:        95317
+ Events generated so far:        95423
+ Events generated so far:        95520
+ Events generated so far:        95612
+ Events generated so far:        95707
+ Events generated so far:        95813
+ Events generated so far:        95901
+ Events generated so far:        95998
+ Events generated so far:        96088
+ Events generated so far:        96197
+ Events generated so far:        96300
+ Events generated so far:        96398
+ Events generated so far:        96493
+ Events generated so far:        96586
+ Events generated so far:        96679
+ Events generated so far:        96788
+ Events generated so far:        96893
+ Events generated so far:        96988
+ Events generated so far:        97085
+ Events generated so far:        97188
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.7727220426868793     
+ Events generated so far:        97295
+ Events generated so far:        97387
+ Events generated so far:        97505
+ Events generated so far:        97600
+ Events generated so far:        97693
+ Events generated so far:        97795
+ Events generated so far:        97897
+ Events generated so far:        97985
+ Events generated so far:        98074
+ Events generated so far:        98180
+ Events generated so far:        98283
+ Events generated so far:        98390
+ Events generated so far:        98475
+ Events generated so far:        98572
+ Events generated so far:        98670
+ Events generated so far:        98768
+ Events generated so far:        98868
+ Events generated so far:        98975
+ Events generated so far:        99098
+ Events generated so far:        99188
+ Events generated so far:        99303
+ Events generated so far:        99423
+ Events generated so far:        99520
+ Events generated so far:        99603
+ Events generated so far:        99708
+ Events generated so far:        99807
+ Events generated so far:        99904
+ Events generated so far:       100004
+ Events generated so far:       100095
+ Events generated so far:       100204
+ Events generated so far:       100286
+ Events generated so far:       100377
+ Events generated so far:       100492
+ Events generated so far:       100582
+ Events generated so far:       100679
+ Events generated so far:       100789
+ Events generated so far:       100876
+ Events generated so far:       100967
+ Events generated so far:       101082
+ Events generated so far:       101178
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.2627021253150532     
+ Events generated so far:       101257
+ Events generated so far:       101360
+ Events generated so far:       101458
+ Events generated so far:       101538
+ Events generated so far:       101640
+ Events generated so far:       101732
+ Events generated so far:       101842
+ Events generated so far:       101943
+ Events generated so far:       102038
+ Events generated so far:       102140
+ Events generated so far:       102241
+ Events generated so far:       102322
+ Events generated so far:       102411
+ Events generated so far:       102508
+ Events generated so far:       102592
+ Events generated so far:       102681
+ Events generated so far:       102777
+ Events generated so far:       102892
+ Events generated so far:       102992
+ Events generated so far:       103083
+ Events generated so far:       103157
+ Events generated so far:       103257
+ Events generated so far:       103361
+ Events generated so far:       103456
+ Events generated so far:       103558
+ Events generated so far:       103655
+ Events generated so far:       103767
+ Events generated so far:       103869
+ Events generated so far:       103964
+ Events generated so far:       104055
+ Events generated so far:       104146
+ Events generated so far:       104248
+ Events generated so far:       104343
+ Events generated so far:       104456
+ Events generated so far:       104543
+ Events generated so far:       104646
+ Events generated so far:       104755
+ Events generated so far:       104851
+ Events generated so far:       104955
+ Events generated so far:       105040
+ Events generated so far:       105146
+ Events generated so far:       105251
+ Events generated so far:       105351
+ Events generated so far:       105443
+ Events generated so far:       105552
+ Events generated so far:       105662
+ Events generated so far:       105761
+ Events generated so far:       105852
+ Events generated so far:       105953
+ Events generated so far:       106056
+ Events generated so far:       106154
+ Events generated so far:       106259
+ Events generated so far:       106356
+ Events generated so far:       106450
+ Events generated so far:       106549
+ Events generated so far:       106663
+ Events generated so far:       106743
+ Events generated so far:       106824
+ Events generated so far:       106897
+ Events generated so far:       106997
+ Events generated so far:       107082
+ Events generated so far:       107181
+ Events generated so far:       107281
+ Events generated so far:       107370
+ Events generated so far:       107474
+ Events generated so far:       107579
+ Events generated so far:       107689
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.9347384353989776     
+ Events generated so far:       107792
+ Events generated so far:       107896
+ Events generated so far:       107979
+ Events generated so far:       108091
+ Events generated so far:       108180
+ Events generated so far:       108296
+ Events generated so far:       108403
+ Events generated so far:       108483
+ Events generated so far:       108612
+ Events generated so far:       108711
+ Events generated so far:       108803
+ Events generated so far:       108899
+ Events generated so far:       109001
+ Events generated so far:       109097
+ Events generated so far:       109187
+ Events generated so far:       109295
+ Events generated so far:       109381
+ Events generated so far:       109479
+ Events generated so far:       109585
+ Events generated so far:       109677
+ Events generated so far:       109773
+ WARNING : lowint : event with |weight| > 1. |weight| =    17.521910643661176     
+ Events generated so far:       109884
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.0323006569947284     
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.2687671502346078     
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.0308114307997207     
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.2854831852387205     
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.1691728024695760     
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.1479146865059877     
+ Events generated so far:       109987
+ Events generated so far:       110078
+ Events generated so far:       110181
+ Events generated so far:       110283
+ Events generated so far:       110393
+ Events generated so far:       110486
+ Events generated so far:       110589
+ Events generated so far:       110690
+ Events generated so far:       110777
+ Events generated so far:       110875
+ Events generated so far:       110967
+ Events generated so far:       111058
+ Events generated so far:       111152
+ Events generated so far:       111231
+ WARNING : lowint : event with |weight| > 1. |weight| =    4.3347266454084430     
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.5567439996322414     
+ Events generated so far:       111330
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.2226567484341866     
+ Events generated so far:       111428
+ Events generated so far:       111523
+ Events generated so far:       111613
+ Events generated so far:       111712
+ Events generated so far:       111820
+ Events generated so far:       111908
+ Events generated so far:       112008
+ Events generated so far:       112090
+ Events generated so far:       112195
+ Events generated so far:       112289
+ Events generated so far:       112377
+ Events generated so far:       112464
+ Events generated so far:       112554
+ Events generated so far:       112644
+ Events generated so far:       112743
+ Events generated so far:       112841
+ Events generated so far:       112947
+ Events generated so far:       113046
+ Events generated so far:       113150
+ Events generated so far:       113247
+ Events generated so far:       113333
+ Events generated so far:       113422
+ Events generated so far:       113538
+ Events generated so far:       113631
+ Events generated so far:       113742
+ Events generated so far:       113827
+ Events generated so far:       113907
+ Events generated so far:       113993
+ Events generated so far:       114097
+ Events generated so far:       114167
+ Events generated so far:       114262
+ Events generated so far:       114356
+ Events generated so far:       114450
+ Events generated so far:       114547
+ Events generated so far:       114647
+ Events generated so far:       114760
+ Events generated so far:       114863
+ Events generated so far:       114939
+ Events generated so far:       115031
+ Events generated so far:       115135
+ Events generated so far:       115240
+ Events generated so far:       115331
+ Events generated so far:       115444
+ Events generated so far:       115542
+ Events generated so far:       115655
+ Events generated so far:       115756
+ Events generated so far:       115853
+ Events generated so far:       115935
+ Events generated so far:       116050
+ Events generated so far:       116156
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.2151095157630998     
+ Events generated so far:       116270
+ Events generated so far:       116352
+ Events generated so far:       116457
+ Events generated so far:       116555
+ Events generated so far:       116651
+ Events generated so far:       116758
+ Events generated so far:       116857
+ Events generated so far:       116948
+ Events generated so far:       117066
+ Events generated so far:       117167
+ Events generated so far:       117268
+ Events generated so far:       117383
+ Events generated so far:       117487
+ Events generated so far:       117585
+ Events generated so far:       117700
+ Events generated so far:       117784
+ Events generated so far:       117881
+ Events generated so far:       117997
+ Events generated so far:       118102
+ Events generated so far:       118198
+ Events generated so far:       118289
+ Events generated so far:       118392
+ Events generated so far:       118494
+ Events generated so far:       118584
+ Events generated so far:       118680
+ Events generated so far:       118768
+ Events generated so far:       118857
+ Events generated so far:       118944
+ Events generated so far:       119032
+ Events generated so far:       119138
+ Events generated so far:       119239
+ Events generated so far:       119333
+ Events generated so far:       119433
+ Events generated so far:       119537
+ Events generated so far:       119645
+ Events generated so far:       119745
+ Events generated so far:       119843
+ Events generated so far:       119949
+ Events generated so far:       120033
+ Events generated so far:       120124
+ Events generated so far:       120222
+ Events generated so far:       120312
+ Events generated so far:       120404
+ Events generated so far:       120502
+ Events generated so far:       120586
+ Events generated so far:       120703
+ Events generated so far:       120794
+ Events generated so far:       120901
+ Events generated so far:       120998
+ Events generated so far:       121086
+ Events generated so far:       121187
+ Events generated so far:       121273
+ Events generated so far:       121363
+ Events generated so far:       121459
+ Events generated so far:       121547
+ Events generated so far:       121646
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.6473362101684799     
+ Events generated so far:       121739
+ Events generated so far:       121834
+ Events generated so far:       121930
+ Events generated so far:       122007
+ Events generated so far:       122094
+ Events generated so far:       122196
+ Events generated so far:       122299
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.3360805242506855     
+ Events generated so far:       122393
+ Events generated so far:       122505
+ Events generated so far:       122604
+ Events generated so far:       122688
+ Events generated so far:       122779
+ Events generated so far:       122871
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.1178495159676141     
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.6713637632203655     
+ Events generated so far:       122974
+ Events generated so far:       123072
+ Events generated so far:       123155
+ Events generated so far:       123253
+ Events generated so far:       123347
+ Events generated so far:       123448
+ Events generated so far:       123565
+ Events generated so far:       123649
+ Events generated so far:       123754
+ Events generated so far:       123871
+ Events generated so far:       123968
+ Events generated so far:       124071
+ Events generated so far:       124158
+ Events generated so far:       124251
+ Events generated so far:       124350
+ Events generated so far:       124434
+ Events generated so far:       124546
+ Events generated so far:       124647
+ Events generated so far:       124748
+ Events generated so far:       124849
+ Events generated so far:       124951
+ Events generated so far:       125064
+ Events generated so far:       125165
+ Events generated so far:       125255
+ Events generated so far:       125361
+ Events generated so far:       125466
+ Events generated so far:       125577
+ Events generated so far:       125672
+ Events generated so far:       125766
+ Events generated so far:       125860
+ Events generated so far:       125954
+ Events generated so far:       126052
+ Events generated so far:       126155
+ Events generated so far:       126251
+ Events generated so far:       126345
+ Events generated so far:       126442
+ Events generated so far:       126542
+ Events generated so far:       126631
+ Events generated so far:       126738
+ Events generated so far:       126834
+ Events generated so far:       126927
+ Events generated so far:       127028
+ Events generated so far:       127139
+ Events generated so far:       127228
+ Events generated so far:       127323
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.2409599843797114     
+ Events generated so far:       127433
+ Events generated so far:       127530
+ Events generated so far:       127632
+ Events generated so far:       127714
+ Events generated so far:       127802
+ Events generated so far:       127899
+ Events generated so far:       128002
+ Events generated so far:       128113
+ Events generated so far:       128220
+ Events generated so far:       128305
+ Events generated so far:       128407
+ Events generated so far:       128509
+ Events generated so far:       128619
+ Events generated so far:       128715
+ Events generated so far:       128807
+ Events generated so far:       128902
+ Events generated so far:       129007
+ Events generated so far:       129099
+ Events generated so far:       129194
+ Events generated so far:       129284
+ Events generated so far:       129389
+ Events generated so far:       129480
+ Events generated so far:       129559
+ Events generated so far:       129663
+ Events generated so far:       129752
+ Events generated so far:       129846
+ Events generated so far:       129959
+ Events generated so far:       130059
+ Events generated so far:       130170
+ Events generated so far:       130275
+ Events generated so far:       130358
+ Events generated so far:       130459
+ Events generated so far:       130571
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.1104254991760349     
+ Events generated so far:       130663
+ Events generated so far:       130766
+ Events generated so far:       130856
+ Events generated so far:       130977
+ Events generated so far:       131072
+ Events generated so far:       131161
+ Events generated so far:       131253
+ Events generated so far:       131369
+ Events generated so far:       131471
+ Events generated so far:       131562
+ Events generated so far:       131653
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.5751354616297415     
+ Events generated so far:       131768
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.3555175553980363     
+ Events generated so far:       131865
+ Events generated so far:       131957
+ Events generated so far:       132047
+ Events generated so far:       132116
+ Events generated so far:       132243
+ Events generated so far:       132327
+ Events generated so far:       132418
+ Events generated so far:       132501
+ Events generated so far:       132590
+ Events generated so far:       132692
+ Events generated so far:       132791
+ Events generated so far:       132896
+ Events generated so far:       133002
+ Events generated so far:       133110
+ Events generated so far:       133210
+ Events generated so far:       133308
+ Events generated so far:       133389
+ Events generated so far:       133508
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.6171586814071044     
+ Events generated so far:       133596
+ Events generated so far:       133710
+ Events generated so far:       133815
+ Events generated so far:       133921
+ Events generated so far:       134021
+ Events generated so far:       134114
+ Events generated so far:       134228
+ Events generated so far:       134314
+ Events generated so far:       134429
+ Events generated so far:       134528
+ Events generated so far:       134630
+ Events generated so far:       134725
+ Events generated so far:       134839
+ Events generated so far:       134932
+ Events generated so far:       135016
+ Events generated so far:       135101
+ Events generated so far:       135203
+ Events generated so far:       135307
+ Events generated so far:       135390
+ Events generated so far:       135481
+ Events generated so far:       135578
+ Events generated so far:       135677
+ Events generated so far:       135774
+ Events generated so far:       135848
+ Events generated so far:       135928
+ Events generated so far:       136023
+ Events generated so far:       136137
+ Events generated so far:       136226
+ Events generated so far:       136343
+ Events generated so far:       136433
+ Events generated so far:       136543
+ Events generated so far:       136648
+ Events generated so far:       136765
+ Events generated so far:       136871
+ WARNING : lowint : event with |weight| > 1. |weight| =    5.9478548424722817     
+ Events generated so far:       136966
+ Events generated so far:       137061
+ Events generated so far:       137148
+ Events generated so far:       137248
+ Events generated so far:       137335
+ Events generated so far:       137427
+ Events generated so far:       137516
+ Events generated so far:       137614
+ Events generated so far:       137714
+ Events generated so far:       137804
+ Events generated so far:       137894
+ Events generated so far:       137994
+ Events generated so far:       138096
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.0805243271106257     
+ Events generated so far:       138208
+ Events generated so far:       138315
+ Events generated so far:       138410
+ Events generated so far:       138503
+ Events generated so far:       138600
+ Events generated so far:       138700
+ Events generated so far:       138796
+ Events generated so far:       138911
+ Events generated so far:       139011
+ Events generated so far:       139111
+ Events generated so far:       139206
+ Events generated so far:       139299
+ Events generated so far:       139386
+ Events generated so far:       139490
+ Events generated so far:       139575
+ Events generated so far:       139672
+ Events generated so far:       139760
+ Events generated so far:       139856
+ Events generated so far:       139958
+ Events generated so far:       140071
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.2700833872273949     
+ Events generated so far:       140172
+ Events generated so far:       140261
+ Events generated so far:       140357
+ Events generated so far:       140455
+ Events generated so far:       140543
+ Events generated so far:       140656
+ Events generated so far:       140749
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.1562100817667216     
+ Events generated so far:       140851
+ Events generated so far:       140971
+ Events generated so far:       141069
+ Events generated so far:       141155
+ Events generated so far:       141242
+ Events generated so far:       141346
+ Events generated so far:       141455
+ Events generated so far:       141549
+ Events generated so far:       141636
+ Events generated so far:       141751
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.2995804235233015     
+ Events generated so far:       141859
+ Events generated so far:       141941
+ Events generated so far:       142042
+ Events generated so far:       142142
+ Events generated so far:       142251
+ Events generated so far:       142350
+ Events generated so far:       142440
+ Events generated so far:       142533
+ Events generated so far:       142636
+ Events generated so far:       142728
+ Events generated so far:       142827
+ Events generated so far:       142937
+ Events generated so far:       143032
+ Events generated so far:       143138
+ Events generated so far:       143226
+ Events generated so far:       143317
+ Events generated so far:       143409
+ Events generated so far:       143495
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.1148543962710278     
+ Events generated so far:       143594
+ Events generated so far:       143690
+ Events generated so far:       143800
+ Events generated so far:       143908
+ Events generated so far:       144001
+ Events generated so far:       144091
+ Events generated so far:       144184
+ Events generated so far:       144279
+ Events generated so far:       144381
+ Events generated so far:       144493
+ Events generated so far:       144588
+ Events generated so far:       144682
+ WARNING : lowint : event with |weight| > 1. |weight| =    3.2116158701996222     
+ Events generated so far:       144792
+ Events generated so far:       144899
+ Events generated so far:       144998
+ Events generated so far:       145104
+ Events generated so far:       145215
+ Events generated so far:       145315
+ Events generated so far:       145427
+ Events generated so far:       145542
+ Events generated so far:       145627
+ Events generated so far:       145711
+ Events generated so far:       145811
+ Events generated so far:       145900
+ Events generated so far:       146001
+ Events generated so far:       146104
+ Events generated so far:       146201
+ Events generated so far:       146292
+ Events generated so far:       146384
+ Events generated so far:       146479
+ Events generated so far:       146574
+ Events generated so far:       146660
+ Events generated so far:       146746
+ Events generated so far:       146835
+ Events generated so far:       146937
+ Events generated so far:       147038
+ Events generated so far:       147141
+ Events generated so far:       147222
+ Events generated so far:       147328
+ Events generated so far:       147427
+ Events generated so far:       147507
+ Events generated so far:       147596
+ Events generated so far:       147676
+ Events generated so far:       147781
+ Events generated so far:       147886
+ Events generated so far:       147983
+ Events generated so far:       148094
+ Events generated so far:       148220
+ Events generated so far:       148309
+ Events generated so far:       148405
+ Events generated so far:       148497
+ Events generated so far:       148589
+ Events generated so far:       148687
+ Events generated so far:       148794
+ Events generated so far:       148875
+ Events generated so far:       148946
+ Events generated so far:       149040
+ Events generated so far:       149143
+ Events generated so far:       149233
+ Events generated so far:       149328
+ Events generated so far:       149417
+ Events generated so far:       149532
+ Events generated so far:       149628
+ Events generated so far:       149732
+ Events generated so far:       149822
+ Events generated so far:       149916
+ Events generated so far:       149995
+ Events generated so far:       150088
+ Events generated so far:       150166
+ Events generated so far:       150262
+ Events generated so far:       150372
+ Events generated so far:       150491
+ Events generated so far:       150591
+ Events generated so far:       150695
+ Events generated so far:       150780
+ Events generated so far:       150874
+ Events generated so far:       150969
+ Events generated so far:       151067
+ Events generated so far:       151175
+ Events generated so far:       151267
+ Events generated so far:       151376
+ Events generated so far:       151467
+ Events generated so far:       151556
+ Events generated so far:       151653
+ Events generated so far:       151752
+ Events generated so far:       151847
+ Events generated so far:       151943
+ WARNING : lowint : event with |weight| > 1. |weight| =    4.5332238481747336     
+ Events generated so far:       152039
+ Events generated so far:       152130
+ Events generated so far:       152218
+ Events generated so far:       152323
+ Events generated so far:       152423
+ Events generated so far:       152539
+ Events generated so far:       152644
+ Events generated so far:       152743
+ Events generated so far:       152853
+ Events generated so far:       152954
+ Events generated so far:       153050
+ Events generated so far:       153165
+ Events generated so far:       153269
+ Events generated so far:       153362
+ Events generated so far:       153465
+ Events generated so far:       153568
+ Events generated so far:       153656
+ Events generated so far:       153750
+ Events generated so far:       153849
+ Events generated so far:       153935
+ Events generated so far:       154019
+ Events generated so far:       154120
+ Events generated so far:       154224
+ Events generated so far:       154321
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.0893579582332111     
+ Events generated so far:       154418
+ Events generated so far:       154515
+ Events generated so far:       154608
+ Events generated so far:       154691
+ Events generated so far:       154783
+ Events generated so far:       154889
+ Events generated so far:       154977
+ Events generated so far:       155089
+ Events generated so far:       155185
+ Events generated so far:       155287
+ Events generated so far:       155374
+ Events generated so far:       155464
+ Events generated so far:       155549
+ Events generated so far:       155643
+ Events generated so far:       155738
+ Events generated so far:       155846
+ Events generated so far:       155934
+ Events generated so far:       156032
+ Events generated so far:       156133
+ Events generated so far:       156249
+ Events generated so far:       156354
+ Events generated so far:       156444
+ Events generated so far:       156552
+ Events generated so far:       156656
+ Events generated so far:       156752
+ Events generated so far:       156844
+ Events generated so far:       156960
+ Events generated so far:       157046
+ Events generated so far:       157137
+ Events generated so far:       157226
+ Events generated so far:       157325
+ Events generated so far:       157423
+ Events generated so far:       157518
+ Events generated so far:       157617
+ WARNING : lowint : event with |weight| > 1. |weight| =    7.8265584228495770     
+ Events generated so far:       157705
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.1250839765440641     
+ Events generated so far:       157805
+ Events generated so far:       157903
+ Events generated so far:       157989
+ Events generated so far:       158080
+ Events generated so far:       158193
+ Events generated so far:       158275
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.0907641951874845     
+ Events generated so far:       158364
+ Events generated so far:       158463
+ Events generated so far:       158584
+ Events generated so far:       158667
+ Events generated so far:       158754
+ Events generated so far:       158856
+ Events generated so far:       158959
+ Events generated so far:       159071
+ Events generated so far:       159154
+ Events generated so far:       159245
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.6431774274615938     
+ Events generated so far:       159348
+ Events generated so far:       159445
+ Events generated so far:       159550
+ Events generated so far:       159661
+ Events generated so far:       159748
+ Events generated so far:       159853
+ Events generated so far:       159939
+ Events generated so far:       160032
+ Events generated so far:       160135
+ Events generated so far:       160247
+ Events generated so far:       160349
+ Events generated so far:       160441
+ Events generated so far:       160535
+ Events generated so far:       160629
+ Events generated so far:       160725
+ Events generated so far:       160822
+ Events generated so far:       160908
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.0628871567463114     
+ Events generated so far:       160999
+ Events generated so far:       161085
+ Events generated so far:       161183
+ Events generated so far:       161299
+ Events generated so far:       161383
+ Events generated so far:       161473
+ Events generated so far:       161571
+ Events generated so far:       161661
+ Events generated so far:       161747
+ Events generated so far:       161830
+ Events generated so far:       161928
+ Events generated so far:       162017
+ Events generated so far:       162114
+ Events generated so far:       162217
+ Events generated so far:       162324
+ Events generated so far:       162431
+ Events generated so far:       162539
+ Events generated so far:       162636
+ Events generated so far:       162731
+ Events generated so far:       162828
+ Events generated so far:       162930
+ Events generated so far:       163029
+ Events generated so far:       163136
+ Events generated so far:       163233
+ WARNING : lowint : event with |weight| > 1. |weight| =    3.2699827408211650     
+ Events generated so far:       163345
+ Events generated so far:       163429
+ Events generated so far:       163524
+ Events generated so far:       163642
+ Events generated so far:       163720
+ Events generated so far:       163825
+ Events generated so far:       163929
+ Events generated so far:       164022
+ Events generated so far:       164129
+ Events generated so far:       164205
+ Events generated so far:       164294
+ Events generated so far:       164397
+ Events generated so far:       164485
+ Events generated so far:       164583
+ Events generated so far:       164684
+ Events generated so far:       164801
+ Events generated so far:       164903
+ Events generated so far:       165007
+ Events generated so far:       165105
+ Events generated so far:       165207
+ Events generated so far:       165308
+ Events generated so far:       165395
+ Events generated so far:       165501
+ Events generated so far:       165583
+ Events generated so far:       165667
+ Events generated so far:       165761
+ Events generated so far:       165869
+ Events generated so far:       165964
+ Events generated so far:       166079
+ Events generated so far:       166172
+ Events generated so far:       166266
+ Events generated so far:       166366
+ Events generated so far:       166459
+ Events generated so far:       166556
+ Events generated so far:       166654
+ Events generated so far:       166763
+ Events generated so far:       166875
+ Events generated so far:       166958
+ Events generated so far:       167054
+ Events generated so far:       167154
+ Events generated so far:       167249
+ Events generated so far:       167345
+ Events generated so far:       167425
+ Events generated so far:       167516
+ Events generated so far:       167625
+ Events generated so far:       167719
+ Events generated so far:       167811
+ Events generated so far:       167903
+ Events generated so far:       167998
+ Events generated so far:       168093
+ Events generated so far:       168184
+ Events generated so far:       168278
+ Events generated so far:       168356
+ Events generated so far:       168447
+ Events generated so far:       168540
+ Events generated so far:       168634
+ Events generated so far:       168734
+ Events generated so far:       168837
+ Events generated so far:       168924
+ Events generated so far:       169037
+ Events generated so far:       169126
+ Events generated so far:       169212
+ Events generated so far:       169317
+ Events generated so far:       169417
+ Events generated so far:       169506
+ Events generated so far:       169603
+ Events generated so far:       169704
+ Events generated so far:       169801
+ Events generated so far:       169898
+ Events generated so far:       169975
+ Events generated so far:       170071
+ Events generated so far:       170172
+ Events generated so far:       170286
+ Events generated so far:       170388
+ Events generated so far:       170481
+ Events generated so far:       170584
+ Events generated so far:       170694
+ Events generated so far:       170795
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.7964887772131306     
+ Events generated so far:       170886
+ Events generated so far:       170984
+ Events generated so far:       171073
+ Events generated so far:       171167
+ Events generated so far:       171259
+ Events generated so far:       171332
+ WARNING : lowint : event with |weight| > 1. |weight| =    4.7070610103063188     
+ Events generated so far:       171419
+ Events generated so far:       171499
+ Events generated so far:       171606
+ Events generated so far:       171717
+ Events generated so far:       171827
+ Events generated so far:       171922
+ Events generated so far:       172027
+ Events generated so far:       172098
+ Events generated so far:       172196
+ Events generated so far:       172301
+ Events generated so far:       172394
+ Events generated so far:       172492
+ Events generated so far:       172581
+ Events generated so far:       172667
+ Events generated so far:       172755
+ Events generated so far:       172848
+ Events generated so far:       172962
+ Events generated so far:       173062
+ Events generated so far:       173158
+ Events generated so far:       173243
+ Events generated so far:       173361
+ Events generated so far:       173458
+ Events generated so far:       173557
+ Events generated so far:       173658
+ Events generated so far:       173757
+ Events generated so far:       173842
+ Events generated so far:       173949
+ Events generated so far:       174047
+ Events generated so far:       174132
+ Events generated so far:       174236
+ Events generated so far:       174335
+ Events generated so far:       174425
+ Events generated so far:       174515
+ Events generated so far:       174626
+ Events generated so far:       174714
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.3209303154504091     
+ Events generated so far:       174811
+ Events generated so far:       174903
+ Events generated so far:       175006
+ Events generated so far:       175106
+ Events generated so far:       175225
+ Events generated so far:       175312
+ Events generated so far:       175408
+ Events generated so far:       175519
+ Events generated so far:       175617
+ Events generated so far:       175711
+ Events generated so far:       175812
+ Events generated so far:       175913
+ Events generated so far:       175995
+ Events generated so far:       176095
+ Events generated so far:       176190
+ Events generated so far:       176283
+ Events generated so far:       176377
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.3839342139654511     
+ Events generated so far:       176452
+ Events generated so far:       176564
+ Events generated so far:       176667
+ Events generated so far:       176761
+ Events generated so far:       176860
+ Events generated so far:       176953
+ Events generated so far:       177053
+ Events generated so far:       177159
+ Events generated so far:       177249
+ Events generated so far:       177334
+ Events generated so far:       177438
+ Events generated so far:       177519
+ Events generated so far:       177635
+ Events generated so far:       177717
+ Events generated so far:       177828
+ Events generated so far:       177928
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.7599728360272917     
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.5071121334293944     
+ Events generated so far:       178026
+ Events generated so far:       178115
+ Events generated so far:       178210
+ Events generated so far:       178292
+ Events generated so far:       178376
+ Events generated so far:       178455
+ Events generated so far:       178551
+ Events generated so far:       178641
+ Events generated so far:       178738
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.0348829068831351     
+ Events generated so far:       178855
+ Events generated so far:       178944
+ Events generated so far:       179031
+ Events generated so far:       179130
+ Events generated so far:       179245
+ WARNING : lowint : event with |weight| > 1. |weight| =    3.5256946001566045     
+ Events generated so far:       179347
+ Events generated so far:       179439
+ Events generated so far:       179528
+ Events generated so far:       179618
+ Events generated so far:       179724
+ Events generated so far:       179797
+ Events generated so far:       179890
+ Events generated so far:       179987
+ Events generated so far:       180097
+ Events generated so far:       180204
+ Events generated so far:       180300
+ Events generated so far:       180407
+ Events generated so far:       180503
+ Events generated so far:       180597
+ Events generated so far:       180697
+ Events generated so far:       180790
+ Events generated so far:       180897
+ Events generated so far:       180990
+ Events generated so far:       181071
+ Events generated so far:       181168
+ Events generated so far:       181260
+ Events generated so far:       181361
+ Events generated so far:       181474
+ Events generated so far:       181573
+ Events generated so far:       181675
+ Events generated so far:       181785
+ Events generated so far:       181886
+ Events generated so far:       181982
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.4852077812755564     
+ Events generated so far:       182085
+ Events generated so far:       182192
+ Events generated so far:       182301
+ Events generated so far:       182391
+ Events generated so far:       182481
+ Events generated so far:       182584
+ Events generated so far:       182668
+ Events generated so far:       182747
+ Events generated so far:       182842
+ Events generated so far:       182927
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.2174188952636418     
+ Events generated so far:       183022
+ Events generated so far:       183124
+ Events generated so far:       183226
+ Events generated so far:       183316
+ Events generated so far:       183411
+ Events generated so far:       183522
+ Events generated so far:       183629
+ Events generated so far:       183729
+ Events generated so far:       183834
+ Events generated so far:       183937
+ WARNING : lowint : event with |weight| > 1. |weight| =    3.4091037886082316     
+ Events generated so far:       184033
+ Events generated so far:       184113
+ Events generated so far:       184225
+ Events generated so far:       184321
+ Events generated so far:       184443
+ Events generated so far:       184539
+ Events generated so far:       184639
+ Events generated so far:       184726
+ Events generated so far:       184834
+ Events generated so far:       184931
+ Events generated so far:       185026
+ Events generated so far:       185125
+ Events generated so far:       185223
+ Events generated so far:       185320
+ Events generated so far:       185420
+ Events generated so far:       185514
+ Events generated so far:       185595
+ Events generated so far:       185697
+ Events generated so far:       185809
+ Events generated so far:       185906
+ Events generated so far:       185993
+ Events generated so far:       186100
+ Events generated so far:       186181
+ Events generated so far:       186279
+ Events generated so far:       186370
+ Events generated so far:       186457
+ Events generated so far:       186558
+ Events generated so far:       186647
+ Events generated so far:       186747
+ Events generated so far:       186826
+ Events generated so far:       186915
+ Events generated so far:       187005
+ Events generated so far:       187114
+ Events generated so far:       187220
+ Events generated so far:       187330
+ Events generated so far:       187420
+ Events generated so far:       187522
+ Events generated so far:       187619
+ Events generated so far:       187714
+ Events generated so far:       187810
+ Events generated so far:       187901
+ Events generated so far:       187986
+ Events generated so far:       188080
+ Events generated so far:       188161
+ Events generated so far:       188267
+ Events generated so far:       188382
+ Events generated so far:       188495
+ Events generated so far:       188591
+ Events generated so far:       188712
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.0292889476341112     
+ Events generated so far:       188807
+ Events generated so far:       188912
+ Events generated so far:       189020
+ Events generated so far:       189122
+ Events generated so far:       189247
+ Events generated so far:       189339
+ Events generated so far:       189434
+ Events generated so far:       189547
+ Events generated so far:       189647
+ Events generated so far:       189740
+ Events generated so far:       189854
+ Events generated so far:       189944
+ Events generated so far:       190048
+ Events generated so far:       190151
+ Events generated so far:       190236
+ Events generated so far:       190317
+ Events generated so far:       190415
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.3107640356788144     
+ Events generated so far:       190528
+ Events generated so far:       190610
+ Events generated so far:       190709
+ Events generated so far:       190805
+ Events generated so far:       190914
+ Events generated so far:       191015
+ Events generated so far:       191114
+ Events generated so far:       191200
+ Events generated so far:       191285
+ Events generated so far:       191388
+ Events generated so far:       191472
+ Events generated so far:       191582
+ Events generated so far:       191684
+ Events generated so far:       191777
+ Events generated so far:       191881
+ Events generated so far:       191982
+ Events generated so far:       192084
+ Events generated so far:       192196
+ Events generated so far:       192290
+ Events generated so far:       192387
+ Events generated so far:       192456
+ Events generated so far:       192535
+ Events generated so far:       192634
+ Events generated so far:       192720
+ Events generated so far:       192820
+ Events generated so far:       192917
+ Events generated so far:       193004
+ Events generated so far:       193094
+ Events generated so far:       193198
+ Events generated so far:       193298
+ Events generated so far:       193399
+ Events generated so far:       193506
+ Events generated so far:       193608
+ Events generated so far:       193700
+ Events generated so far:       193792
+ Events generated so far:       193875
+ Events generated so far:       193951
+ Events generated so far:       194046
+ Events generated so far:       194129
+ Events generated so far:       194234
+ Events generated so far:       194333
+ Events generated so far:       194424
+ Events generated so far:       194538
+ Events generated so far:       194630
+ Events generated so far:       194746
+ Events generated so far:       194854
+ Events generated so far:       194944
+ Events generated so far:       195024
+ Events generated so far:       195124
+ Events generated so far:       195228
+ Events generated so far:       195335
+ Events generated so far:       195438
+ Events generated so far:       195538
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.8857569947523725     
+ Events generated so far:       195621
+ Events generated so far:       195708
+ Events generated so far:       195830
+ Events generated so far:       195926
+ Events generated so far:       196017
+ Events generated so far:       196104
+ Events generated so far:       196209
+ Events generated so far:       196302
+ Events generated so far:       196400
+ Events generated so far:       196503
+ Events generated so far:       196609
+ Events generated so far:       196715
+ Events generated so far:       196821
+ Events generated so far:       196917
+ Events generated so far:       197016
+ Events generated so far:       197134
+ Events generated so far:       197220
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.8456961590314971     
+ Events generated so far:       197323
+ Events generated so far:       197406
+ Events generated so far:       197501
+ Events generated so far:       197573
+ Events generated so far:       197666
+ Events generated so far:       197773
+ Events generated so far:       197866
+ WARNING : lowint : event with |weight| > 1. |weight| =    2.8303913811139347     
+ Events generated so far:       197967
+ Events generated so far:       198060
+ Events generated so far:       198154
+ Events generated so far:       198244
+ Events generated so far:       198326
+ Events generated so far:       198437
+ Events generated so far:       198539
+ Events generated so far:       198634
+ Events generated so far:       198729
+ Events generated so far:       198820
+ Events generated so far:       198897
+ Events generated so far:       198988
+ Events generated so far:       199083
+ Events generated so far:       199170
+ Events generated so far:       199264
+ WARNING : lowint : event with |weight| > 1. |weight| =    1.3333961633409928     
+ Events generated so far:       199364
+ Events generated so far:       199457
+ WARNING : lowint : event with |weight| > 1. |weight| =    4.0106524328221091     
+ Events generated so far:       199555
+ Events generated so far:       199668
+ Events generated so far:       199767
+ Events generated so far:       199859
+ Events generated so far:       199960
+ Events generated so far:       200049
+
+Value of final lord integral is   43.3667     +/-  0.149864     fb
+
+ Total number of shots       :     20650000
+ Total no. failing cuts      :      3760536
+ Number failing jet cuts     :            0
+ Number failing process cuts :            0
+
+   Jet efficiency : 100.00%
+   Cut efficiency : 100.00%
+ Total efficiency : 100.00%
+
+ Contribution from parton sub-processes:
+ ---------------------------------------
+       GG     |        43.367      100.00%
+       GQ     |        0.0000        0.00%
+       GQB    |        0.0000        0.00%
+       QG     |        0.0000        0.00%
+       QBG    |        0.0000        0.00%
+       QQ     |        0.0000        0.00%
+       QBQB   |        0.0000        0.00%
+       QQB    |        0.0000        0.00%
+       QBQ    |        0.0000        0.00%
+ ---------------------------------------

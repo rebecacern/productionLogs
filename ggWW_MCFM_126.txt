@@ -1,0 +1,688 @@
+./mcfm
+ ************** MCFM - version 7.0 ****************
+ *                                                *
+ * MCFM, v7.0                   March 20th, 2015  *
+ *                                                *
+ * Authors: John Campbell, Keith Ellis,           *
+ *          Walter Giele, Ciaran Williams         *
+ *         (johnmc@fnal.gov, ellis@fnal.gov,      *
+ *          giele@fnal.gov,ciaran@fnal.gov)       *
+ *                                                *
+ * For details see:                               *
+ *                                                *
+ *  arXiv:1502.02990 (VBF and VBS Higgs)          *
+ *  arXiv:1403.2641  (Triphoton production)       *
+ *  arXiv:1312.1628  (gg->WW, Higgs interference) *
+ *  arXiv:1311.3589  (gg->ZZ, Higgs interference) *
+ *  Phys.Rev.D87:114006, arXiv:1302.3856          *
+ *  (tZ, tH -- with R. Rontsch)                   *
+ *  arXiv:1211.6390 (DM, P. Fox and C. Williams)  *
+ *  JHEP 1211:162 (2012), arXiv:1208.0566         *
+ *  (Z+gam+jet,Z+gam+gam -- with H. Hartanto)     *
+ *  arXiv:1204.1513 (top production+decay)        *
+ *  JHEP 1207:052 (2012), arXiv:1204.5678 (ttW)   *
+ *  JHEP 1110:005 (2011), arXiv:1107.5569         *
+ *         (gg->WW,Higgs intference)              *
+ *  JHEP 1107:018 (2011), arXiv:1105.0020         *
+ *         (diboson update)                       *
+ *  JHEP 1103:027 (2011), arXiv:1011.6647         *
+ *         (Wbb for mb>0, with S. Badger)         *
+ *  Phys.Rev.D81:074023, arXiv:1001.4495 (H+2jet) *
+ *                                                *
+ *  P.R.L. 102:142001, arXiv:0903.0005 [hep-ph]   *
+ *    (t-channel single top + explicit b,         *
+ *      JC, R.Frederix, F.Maltoni, F.Tramontano)  *
+ *  N.P.B 726:109(2005), hep-ph/0506289 (W+t)     *
+ *  Phys.Rev.D70:094012, hep-ph/0408158 (Sngl Top)*
+ *       (with Francesco Tramontano)              *
+ *                                                *
+ *  Phys.Rev.D65:113007, hep-ph/0202176 (W,Z+2j)  *
+ *  Phys.Rev.D62:114012, hep-ph/0006304 (W,Z+bb)  *
+ *  Phys.Rev.D60:113006, hep-ph/9905386 (diboson) *
+ *                                                *
+ * On the web:  http://mcfm.fnal.gov/             *
+ **************************************************
+
+ * Using input file named input.DAT                                                               
+
+ * [Flags to specify the mode in which MCFM is run]                                          
+ *                 2000            [nevtrequested] 
+ *                    F            [creatent] 
+ *                    F            [skipnt] 
+ *                    F            [dswhisto] 
+ *                    T            [writetop] 
+ *                    F            [writedat] 
+ *                    F            [writegnu] 
+ *                    T            [writeroot] 
+ *                    F            [writepwg] 
+
+ * [General options to specify the process and execution]                                    
+ *                  126            [nproc] 
+ *                 lord            [part] 
+ * test                            [runstring] 
+ *           13000.0000            [sqrts] 
+ *                    1            [ih1] 
+ *                    1            [ih2] 
+ *             125.0000            [hmass] 
+ *               0.5000            [scale] 
+ *               0.5000            [facscale] 
+ * m(3456)                         [dynamicscale] 
+ *                    F            [zerowidth] 
+ *                    F            [removebr] 
+ *                    4            [itmx1] 
+ *                10000            [ncall1] 
+ *                   10            [itmx2] 
+ *                10000            [ncall2] 
+ *                 1089            [ij] 
+ *                    F            [dryrun] 
+ *                    T            [Qflag] 
+ *                    T            [Gflag] 
+
+ * [Heavy quark masses]                                                                      
+ *             172.5000            [top mass] 
+ *               4.7500            [bottom mass] 
+ *               1.4050            [charm mass] 
+
+ * [Pdf selection]                                                                           
+ *              cteq6_l            [pdlabel] 
+ *                    4            [NGROUP] 
+ *                   46            [NSET] 
+ * NNPDF30_lo_as_0130              [LHAPDF group] 
+ *                    0            [LHAPDF set] 
+
+ * [Jet definition and event cuts]                                                           
+ *               2.5000            [m34min] 
+ *           13000.0000            [m34max] 
+ *               2.5000            [m56min] 
+ *           13000.0000            [m56max] 
+ *               0.0000            [m3456min] 
+ *           14000.0000            [m3456max] 
+ *                    T            [inclusive] 
+ *                 ankt            [algorithm] 
+ *              15.0000            [ptjetmin] 
+ *               0.0000            [etajetmin] 
+ *               5.0000            [etajetmax] 
+ *               0.4000            [Rcut] 
+ *                    T            [makecuts] 
+ *               3.0000            [leptpt] 
+ *               2.7000            [leptrap] 
+ *    0.000,   0.000                [leptveto] 
+ *               0.0000            [misspt] 
+ *               3.0000            [leptpt2] 
+ *               2.7000            [leptrap2] 
+ *    0.000,   0.000                [leptveto2] 
+ *               0.0000            [mtrans34cut] 
+ *               0.0000            [Rjlmin] 
+ *               0.0000            [Rllmin] 
+ *               0.0000            [delyjjmin] 
+ *                    F            [jetsopphem] 
+ *                    0            [lbjscheme] 
+ *               0.0000            [ptbjetmin] 
+ *              99.0000            [etabjetmax] 
+
+ * [Settings for photon processes]                                                           
+ *                    F            [frag] 
+ *             GdRG__LO            [fragset] 
+ *              80.0000            [frag_scale] 
+ *              20.0000            [gammpt] 
+ *               2.5000            [gammrap] 
+ *              20.0000            [gammpt2] 
+ *              20.0000            [gammpt3] 
+ *               0.0000            [Rgalmin] 
+ *               0.4000            [Rgagamin] 
+ *               0.4000            [Rgajetmin] 
+ *               0.4000            [cone_ang] 
+ *               0.5000            [epsilon_h] 
+
+ * [Anomalous couplings of the W and Z]                                                      
+ *               0.0000            [delg1_z] 
+ *               0.0000            [delk_z] 
+ *               0.0000            [delk_g] 
+ *               0.0000            [lambda_z] 
+ *               0.0000            [lambda_g] 
+ *               0.0000            [h1Z] 
+ *               0.0000            [h1gam] 
+ *               0.0000            [h2Z] 
+ *               0.0000            [h2gam] 
+ *               0.0000            [h3Z] 
+ *               0.0000            [h3gam] 
+ *               0.0000            [h4Z] 
+ *               0.0000            [h4gam] 
+ *               2.0000            [tevscale] 
+
+ * [Anomalous width of the Higgs]                                                            
+ *               1.0000            [Gamma_H/Gamma_H(SM)] 
+
+ * [How to resume/save a run]                                                                
+ *                    F            [readin] 
+ *                    F            [writeout] 
+ *                                 [ingridfile] 
+ *                                 [outgridfile] 
+
+ * [Technical parameters that should not normally be changed]
+
+ *                    F            [debug] 
+ *                    T            [verbose] 
+ *                    F            [new_pspace] 
+ *                    F            [virtonly] 
+ *                    F            [realonly] 
+ *                    T            [spira] 
+ *                    F            [noglue] 
+ *                    F            [ggonly] 
+ *                    F            [gqonly] 
+ *                    F            [omitgg] 
+ *                    F            [vanillafiles] 
+ *                    1            [nmin] 
+ *                    2            [nmax] 
+ *                    T            [clustering] 
+ *                    F            [realwt] 
+ *                    0            [colourchoice] 
+ *               0.0100            [rtsmin] 
+ *               0.0001            [cutoff] 
+ *               0.1000            [aii] 
+ *               0.1000            [aif] 
+ *               0.1000            [afi] 
+ *               1.0000            [aff] 
+ *               1.0000            [bfi] 
+ *               1.0000            [bff] 
+
+ Chooser:process chosen by nproc=         126
+
+ *************************** f(p1)+f(p2) --> ******************************************
+ * W^+(nu(p3)+e^+(p4)) + W^-(e^-(p5)+nu~(p6))                                         *
+ * [gg only, (H + gg->WW) squared]                                                    *
+ **************************************************************************************
+
+
+ *******************************************
+ *     MCFM is calling LHAPDF              *
+ *                                         *
+ *   PDFname NNPDF30_lo_as_0130.LHpdf      *
+ *   PDFmember  0                          *
+ *******************************************
+
+LHAPDF 6.1.5 loading /cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf6/6.1.5-cms/share/LHAPDF/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130_0000.dat
+NNPDF30_lo_as_0130 PDF set, member #0, version 2; LHAPDF ID = 263000
+ ************** Electroweak parameters **************
+ *                                                  *
+ *  zmass(+)   91.1876000     wmass(+)  80.3990000  *
+ * zwidth(+)    2.4952000    wwidth(+)   2.1054000  *
+ *     Gf(+) 0.116639D-04   1/aemmz(+) 128.0000000  *
+ *     xw(+)    0.2311900      mtop(+) 172.5000000  *
+ *   gwsq       0.4246497       esq      0.0981748  *
+ * top width    1.4534254 (LO)                      *
+ *    mb        4.7500000        mc      1.4050000  *
+ *                                                  *
+ * Parameters marked (+) are input, others derived  *
+ ****************************************************
+
+ ****************** Higgs parameters ****************
+ *                                                  *
+ *   mass(H) =  125.00      width(H) =  0.41650E-02 *
+ *                                                  *
+ *              Br( H -> b bbar)  =   0.48068       *
+ *              Br( H -> tau tau) =   0.06185       *
+ *              Br( H -> W W)     =   0.00000       *
+ *              Br( H -> Z Z)     =   0.00000       *
+ *              Br( H -> gam gam) =   0.00251       *
+ *              Br( H -> Z gam)   =   0.00161       *
+ ****************************************************
+ *                                                  *
+ * Note: branching ratios reported here can be > 1  *
+ *       since the total Higgs width is calculated  *
+ *       at NLO but the BR calculation uses a       *
+ *       partial width at LO only.                  *
+ *                                                  *
+ ****************************************************
+
+ WARNING: Higgs decay H->WW is below threshold and
+ may not yield sensible results - check the number
+ of integration points
+
+ *******************************************
+ *     MCFM is calling LHAPDF              *
+ *                                         *
+ *   PDFname NNPDF30_lo_as_0130.LHpdf      *
+ *   PDFmember  0                          *
+ *******************************************
+
+LHAPDF 6.1.5 loading /cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf6/6.1.5-cms/share/LHAPDF/NNPDF30_lo_as_0130/NNPDF30_lo_as_0130_0000.dat
+NNPDF30_lo_as_0130 PDF set, member #0, version 2; LHAPDF ID = 263000
+
+ ***************** CKM mixing matrix ****************
+ *                                                  *
+ *      Vud=.97425    Vus=.22530    Vub=.41300E-01  *
+ *      Vcd=.22500    Vcs=.98600    Vcb=.41100E-01  *
+ ****************************************************
+
+ ************* Strong coupling, alpha_s  ************
+ *                                                  *
+ *  Dynamic scale - alpha_s changed event-by-event  *
+ *       alpha_s (zmass)  0.13000266                *
+ *         (using 1-loop running of alpha_s)        *
+ ****************************************************
+
+ ****************************************
+ *     Cross section in femtobarns      *
+ ****************************************
+
+
+ input parameters for vegas:  ndim= 10  ncall=  10000.
+                              it=    0  itmx=    4
+                              nprn=  0  alph= 1.50
+                              mds=  0   nd= 100
+                              xl( 1)=   0.000     xu( 1)=   1.000    
+                              xl( 2)=   0.000     xu( 2)=   1.000    
+                              xl( 3)=   0.000     xu( 3)=   1.000    
+                              xl( 4)=   0.000     xu( 4)=   1.000    
+                              xl( 5)=   0.000     xu( 5)=   1.000    
+                              xl( 6)=   0.000     xu( 6)=   1.000    
+                              xl( 7)=   0.000     xu( 7)=   1.000    
+                              xl( 8)=   0.000     xu( 8)=   1.000    
+                              xl( 9)=   0.000     xu( 9)=   1.000    
+                              xl(10)=   0.000     xu(10)=   1.000    
+
+ ****************** Basic mass cuts *****************
+ *                                                  *
+ *              2.50  <   m34  < 13000.00           *
+ *              2.50  <   m56  < 13000.00           *
+ *             0.00  <   m3456  < 14000.00          *
+ ****************************************************
+
+ ****************** Generic cuts ********************
+ *                                                  *
+ *        pt(lepton)      >     3.00 GeV            *
+ *      |eta(lepton)|     <     2.70                *
+ *       pt(missing)      >     0.00 GeV            *
+ *     pt(2nd+ lepton)    >     3.00 GeV            *
+ *   |eta(2nd+ lepton)|   <     2.70                *
+ *  (3,4) transverse mass >     0.00 GeV            *
+ *      R(jet,lepton)     >     0.00                *
+ *     R(lepton,lepton)   >     0.00                *
+ * |eta(jet1)-eta(jet2)|  >     0.00                *
+ ****************************************************
+
+ ************** Dynamic scale choice ****************
+ *                                                  *
+ *                 RENORMALIZATION                  *
+ *       mu_ren  =  0.50 x m(3456)                  *
+ *                                                  *
+ *                  FACTORIZATION                   *
+ *       mu_fac  =  0.50 x m(3456)                  *
+ *                                                  *
+ ****************************************************
+ ****************************************************
+ *                                                  *
+ *  gg->WW box loop includes gens. 1 and 2          *
+ *  gg->WW box loop includes 3rd generation         *
+ *                                                  *
+ ****************************************************
+ ====================================================
+   This is QCDLoop - version 1.95                    
+   Authors: Keith Ellis and Giulia Zanderighi        
+   (ellis@fnal.gov, g.zanderighi1@physics.ox.ac.uk)  
+   For details see FERMILAB-PUB-07-633-T,OUTP-07/16P 
+   arXiv:0712.1851 [hep-ph], published in            
+   JHEP 0802:002,2008.                               
+ ====================================================
+ ====================================================
+   FF 2.0, a package to evaluate one-loop integrals
+ written by G. J. van Oldenborgh, NIKHEF-H, Amsterdam
+ ====================================================
+ for the algorithms used see preprint NIKHEF-H 89/17,
+ 'New Algorithms for One-loop Integrals', by G.J. van
+ Oldenborgh and J.A.M. Vermaseren, published in 
+ Zeitschrift fuer Physik C46(1990)425.
+ ====================================================
+ ffini: precx =    4.4408920985006262E-016
+ ffini: precc =    4.4408920985006262E-016
+ ffini: xalogm =    4.9406564584124654E-324
+ ffini: xclogm =    4.9406564584124654E-324
+ ====================================================
+   This is QCDLoop - version 1.95                    
+   Authors: Keith Ellis and Giulia Zanderighi        
+   (ellis@fnal.gov, g.zanderighi1@physics.ox.ac.uk)  
+   For details see FERMILAB-PUB-07-633-T,OUTP-07/16P 
+   arXiv:0712.1851 [hep-ph], published in            
+   JHEP 0802:002,2008.                               
+ ====================================================
+ ====================================================
+   This is QCDLoop - version 1.95                    
+   Authors: Keith Ellis and Giulia Zanderighi        
+   (ellis@fnal.gov, g.zanderighi1@physics.ox.ac.uk)  
+   For details see FERMILAB-PUB-07-633-T,OUTP-07/16P 
+   arXiv:0712.1851 [hep-ph], published in            
+   JHEP 0802:002,2008.                               
+ ====================================================
+
+************* Integration by Vegas (iteration   1) **************
+*                                                               *
+*  integral  =  65.822957       accum. integral =  65.822957    *
+*  std. dev. =  10.819539       accum. std. dev =  10.819539    *
+*   max. wt. =    6.03543                                       *
+*                                                               *
+**************   chi**2/iteration =  0.000       ****************
+
+
+************* Integration by Vegas (iteration   2) **************
+*                                                               *
+*  integral  =  48.605033       accum. integral =  50.397336    *
+*  std. dev. =  3.6880198       accum. std. dev =  3.4907936    *
+*   max. wt. =    6.03543                                       *
+*                                                               *
+**************   chi**2/iteration =  2.246       ****************
+
+
+************* Integration by Vegas (iteration   3) **************
+*                                                               *
+*  integral  =  65.393697       accum. integral =  54.259273    *
+*  std. dev. =  5.9272802       accum. std. dev =  3.0079119    *
+*   max. wt. =    6.03543                                       *
+*                                                               *
+**************   chi**2/iteration =  3.493       ****************
+
+
+************* Integration by Vegas (iteration   4) **************
+*                                                               *
+*  integral  =  85.352566       accum. integral =  56.324818    *
+*  std. dev. =  11.275986       accum. std. dev =  2.9062865    *
+*   max. wt. =    7.86548                                       *
+*                                                               *
+**************   chi**2/iteration =  4.691       ****************
+
+
+ input parameters for vegas:  ndim= 10  ncall=  10000.
+                              it=    5  itmx=   10
+                              nprn=  0  alph= 1.50
+                              mds=  0   nd= 100
+                              xl( 1)=   0.000     xu( 1)=   1.000    
+                              xl( 2)=   0.000     xu( 2)=   1.000    
+                              xl( 3)=   0.000     xu( 3)=   1.000    
+                              xl( 4)=   0.000     xu( 4)=   1.000    
+                              xl( 5)=   0.000     xu( 5)=   1.000    
+                              xl( 6)=   0.000     xu( 6)=   1.000    
+                              xl( 7)=   0.000     xu( 7)=   1.000    
+                              xl( 8)=   0.000     xu( 8)=   1.000    
+                              xl( 9)=   0.000     xu( 9)=   1.000    
+                              xl(10)=   0.000     xu(10)=   1.000    
+
+************* Integration by Vegas (iteration   1) **************
+*                                                               *
+*  integral  =  80.206549       accum. integral =  80.206549    *
+*  std. dev. =  7.9314565       accum. std. dev =  7.9314565    *
+*   max. wt. =    5.92786                                       *
+*                                                               *
+**************   chi**2/iteration =  0.000       ****************
+
+ Writing out intermediate results for iteration           1
+
+************* Integration by Vegas (iteration   2) **************
+*                                                               *
+*  integral  =  74.571291       accum. integral =  76.920692    *
+*  std. dev. =  6.7066730       accum. std. dev =  5.1212336    *
+*   max. wt. =    5.92786                                       *
+*                                                               *
+**************   chi**2/iteration = 0.2914       ****************
+
+ Writing out intermediate results for iteration           2
+
+************* Integration by Vegas (iteration   3) **************
+*                                                               *
+*  integral  =  67.349069       accum. integral =  69.969632    *
+*  std. dev. =  3.1444621       accum. std. dev =  2.6796563    *
+*   max. wt. =    5.92786                                       *
+*                                                               *
+**************   chi**2/iteration =  1.409       ****************
+
+ Writing out intermediate results for iteration           3
+
+************* Integration by Vegas (iteration   4) **************
+*                                                               *
+*  integral  =  73.257016       accum. integral =  71.869309    *
+*  std. dev. =  2.2902782       accum. std. dev =  1.7410163    *
+*   max. wt. =    5.92786                                       *
+*                                                               *
+**************   chi**2/iteration =  1.230       ****************
+
+ Writing out intermediate results for iteration           4
+
+************* Integration by Vegas (iteration   5) **************
+*                                                               *
+*  integral  =  75.598315       accum. integral =  73.478230    *
+*  std. dev. =  1.9985361       accum. std. dev =  1.3127526    *
+*   max. wt. =    5.92786                                       *
+*                                                               *
+**************   chi**2/iteration =  1.417       ****************
+
+ Writing out intermediate results for iteration           5
+
+************* Integration by Vegas (iteration   6) **************
+*                                                               *
+*  integral  =  77.653159       accum. integral =  74.615604    *
+*  std. dev. =  2.1453268       accum. std. dev =  1.1197484    *
+*   max. wt. =    5.92786                                       *
+*                                                               *
+**************   chi**2/iteration =  1.684       ****************
+
+ Writing out intermediate results for iteration           6
+
+************* Integration by Vegas (iteration   7) **************
+*                                                               *
+*  integral  =  73.238541       accum. integral =  74.168975    *
+*  std. dev. =  1.6161806       accum. std. dev = 0.92042069    *
+*   max. wt. =    5.92786                                       *
+*                                                               *
+**************   chi**2/iteration =  1.485       ****************
+
+ Writing out intermediate results for iteration           7
+
+************* Integration by Vegas (iteration   8) **************
+*                                                               *
+*  integral  =  75.759592       accum. integral =  74.713455    *
+*  std. dev. =  1.2758203       accum. std. dev = 0.74644494    *
+*   max. wt. =    5.92786                                       *
+*                                                               *
+**************   chi**2/iteration =  1.419       ****************
+
+ Writing out intermediate results for iteration           8
+
+************* Integration by Vegas (iteration   9) **************
+*                                                               *
+*  integral  =  76.055250       accum. integral =  75.073870    *
+*  std. dev. =  1.2317288       accum. std. dev = 0.63837127    *
+*   max. wt. =    5.92786                                       *
+*                                                               *
+**************   chi**2/iteration =  1.350       ****************
+
+ Writing out intermediate results for iteration           9
+
+************* Integration by Vegas (iteration  10) **************
+*                                                               *
+*  integral  =  78.402779       accum. integral =  75.741609    *
+*  std. dev. =  1.2744014       accum. std. dev = 0.57076676    *
+*   max. wt. =    5.92786                                       *
+*                                                               *
+**************   chi**2/iteration =  1.806       ****************
+
+ Generate events :
+ Trying to unweight events ...
+ Events generated so far:           14
+ Events generated so far:           38
+ Events generated so far:           43
+ Events generated so far:           53
+ Events generated so far:           62
+ Events generated so far:           76
+ Events generated so far:           92
+ Events generated so far:          102
+ Events generated so far:          107
+ Events generated so far:          124
+ Events generated so far:          131
+ Events generated so far:          144
+ Events generated so far:          162
+ Events generated so far:          174
+ Events generated so far:          181
+ Events generated so far:          195
+ Events generated so far:          207
+ Events generated so far:          214
+ Events generated so far:          227
+ Events generated so far:          244
+ Events generated so far:          262
+ Events generated so far:          275
+ Events generated so far:          290
+ Events generated so far:          303
+ Events generated so far:          318
+ Events generated so far:          334
+ Events generated so far:          349
+ Events generated so far:          363
+ Events generated so far:          378
+ Events generated so far:          393
+ Events generated so far:          407
+ Events generated so far:          423
+ Events generated so far:          441
+ Events generated so far:          458
+ Events generated so far:          470
+ Events generated so far:          486
+ Events generated so far:          493
+ Events generated so far:          508
+ Events generated so far:          520
+ Events generated so far:          525
+ Events generated so far:          532
+ Events generated so far:          547
+ Events generated so far:          562
+ Events generated so far:          581
+ Events generated so far:          597
+ Events generated so far:          602
+ Events generated so far:          614
+ Events generated so far:          627
+ Events generated so far:          639
+ Events generated so far:          653
+ Events generated so far:          669
+ Events generated so far:          684
+ Events generated so far:          700
+ Events generated so far:          714
+ Events generated so far:          725
+ Events generated so far:          737
+ Events generated so far:          745
+ Events generated so far:          756
+ Events generated so far:          770
+ Events generated so far:          785
+ Events generated so far:          794
+ Events generated so far:          812
+ Events generated so far:          824
+ Events generated so far:          843
+ Events generated so far:          853
+ Events generated so far:          868
+ Events generated so far:          890
+ Events generated so far:          904
+ Events generated so far:          912
+ Events generated so far:          926
+ Events generated so far:          933
+ Events generated so far:          949
+ Events generated so far:          964
+ Events generated so far:          975
+ Events generated so far:          985
+ Events generated so far:          998
+ Events generated so far:         1009
+ Events generated so far:         1020
+ Events generated so far:         1032
+ Events generated so far:         1051
+ Events generated so far:         1067
+ Events generated so far:         1081
+ Events generated so far:         1097
+ Events generated so far:         1106
+ Events generated so far:         1117
+ Events generated so far:         1125
+ Events generated so far:         1136
+ Events generated so far:         1155
+ Events generated so far:         1165
+ Events generated so far:         1181
+ Events generated so far:         1192
+ Events generated so far:         1205
+ Events generated so far:         1213
+ Events generated so far:         1221
+ Events generated so far:         1236
+ Events generated so far:         1253
+ Events generated so far:         1261
+ Events generated so far:         1274
+ Events generated so far:         1290
+ Events generated so far:         1299
+ Events generated so far:         1315
+ Events generated so far:         1329
+ Events generated so far:         1338
+ Events generated so far:         1355
+ Events generated so far:         1371
+ Events generated so far:         1383
+ Events generated so far:         1393
+ Events generated so far:         1409
+ Events generated so far:         1423
+ Events generated so far:         1432
+ Events generated so far:         1448
+ Events generated so far:         1464
+ Events generated so far:         1474
+ Events generated so far:         1489
+ Events generated so far:         1506
+ Events generated so far:         1512
+ Events generated so far:         1527
+ Events generated so far:         1535
+ Events generated so far:         1545
+ Events generated so far:         1556
+ Events generated so far:         1570
+ Events generated so far:         1580
+ Events generated so far:         1591
+ Events generated so far:         1601
+ Events generated so far:         1610
+ Events generated so far:         1616
+ Events generated so far:         1629
+ Events generated so far:         1645
+ Events generated so far:         1661
+ Events generated so far:         1674
+ Events generated so far:         1693
+ Events generated so far:         1704
+ Events generated so far:         1720
+ Events generated so far:         1733
+ Events generated so far:         1739
+ Events generated so far:         1749
+ Events generated so far:         1763
+ Events generated so far:         1774
+ Events generated so far:         1782
+ Events generated so far:         1796
+ Events generated so far:         1805
+ Events generated so far:         1823
+ Events generated so far:         1831
+ Events generated so far:         1843
+ Events generated so far:         1858
+ Events generated so far:         1876
+ Events generated so far:         1892
+ Events generated so far:         1904
+ Events generated so far:         1917
+ Events generated so far:         1927
+ Events generated so far:         1944
+ Events generated so far:         1955
+ Events generated so far:         1968
+ Events generated so far:         1985
+ Events generated so far:         1995
+ Events generated so far:         2007
+
+Value of final lord integral is   75.7416     +/-  0.570767     fb
+
+ Total number of shots       :      1660000
+ Total no. failing cuts      :       302288
+ Number failing jet cuts     :            0
+ Number failing process cuts :            0
+
+   Jet efficiency : 100.00%
+   Cut efficiency : 100.00%
+ Total efficiency : 100.00%
+
+ Contribution from parton sub-processes:
+ ---------------------------------------
+       GG     |        75.742      100.00%
+       GQ     |        0.0000        0.00%
+       GQB    |        0.0000        0.00%
+       QG     |        0.0000        0.00%
+       QBG    |        0.0000        0.00%
+       QQ     |        0.0000        0.00%
+       QBQB   |        0.0000        0.00%
+       QQB    |        0.0000        0.00%
+       QBQ    |        0.0000        0.00%
+ ---------------------------------------
