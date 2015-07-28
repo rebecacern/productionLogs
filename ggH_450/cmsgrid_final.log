@@ -43,14 +43,14 @@
     
   A Higgs mass of  450.00 GeV was determined from the LHE input file.
 
-        5000  events accepted (   5.3991789999999469      ) seconds
-       10000  events accepted (   10.827353999999957      ) seconds
+        5000  events accepted (   2.2306609999999978      ) seconds
+       10000  events accepted (   4.4773189999999943      ) seconds
  
- Evaluation Counter:                 79115
+ Evaluation Counter:                 78477
  Acceptance Counter:                 10000
- Rejection  Counter:                 69115
+ Rejection  Counter:                 68477
   Alert  Counter:                     0
-  event generation rate (events/sec)   923.50139273245122     
+  event generation rate (events/sec)   2233.4794550042143     
 
 Accepted Events:     10000
 Branchings:
