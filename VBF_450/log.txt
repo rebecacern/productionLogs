@@ -1,5 +1,5 @@
 @(#)CERN job starter $Date: 2010/06/23 14:22:16 $
-Working directory is </pool/lsf/rebeca/679890050> on <b6be2b6c1c.cern.ch>
+Working directory is </pool/lsf/rebeca/682829122> on <b6023ce497.cern.ch>
 
    ______________________________________     
          Running Powheg                       
@@ -30,10 +30,10 @@ lhans2  260000         ! pdf set for hadron 2 (LHA numbering)
 use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
 use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
 
-ncall1 125000    ! number of calls for initializing the integration grid
-itmx1    7       ! number of iterations for initializing the integration grid
+ncall1 550000    ! number of calls for initializing the integration grid
+itmx1    8       ! number of iterations for initializing the integration grid
 ncall2 75000   ! number of calls for computing the integral and finding upper bound
-itmx2    5       ! number of iterations for computing the integral and finding upper bound
+itmx2    7       ! number of iterations for computing the integral and finding upper bound
 foldcsi   2      ! number of folds on csi integration
 foldy     5      ! number of folds on  y  integration
 foldphi   2      ! number of folds on phi integration
@@ -488,8 +488,8 @@ computing weights for NNPDF 2.3 two alphas variation
 
  finished computing weights ..
 
--rw-r--r--. 1 rebeca zh 84481352 Jul 22 17:43 cmsgrid_final.lhe
-/afs/cern.ch/work/r/rebeca/hww_signal_gridpacks_II/CMSSW_7_1_14/src/tmp2/powhegbox_VBF_H
+-rw-r--r--. 1 rebeca zh 84481056 Jul 30 15:15 cmsgrid_final.lhe
+/afs/cern.ch/work/r/rebeca/hww_signal_gridpacks_II/CMSSW_7_1_14/src/tmp/powhegbox_VBF_H
 ./JHUGen Collider=1 PChannel=1 MReso=450 Process=0 Unweighted=1 DecayMode1=10 DecayMode2=5 OffXVV=011 ReadLHE=cmsgrid_tmp.lhe DataFile=cmsgrid_final
  
                                                                                           
@@ -540,20 +540,20 @@ computing weights for NNPDF 2.3 two alphas variation
 
   finding maximal weight with     10000000  points
   generating events
-        5000  events accepted (   9.8255069999999876      ) seconds
-       10000  events accepted (   19.010109999999997      ) seconds
+        5000  events accepted (   5.3871819999999957      ) seconds
+       10000  events accepted (   9.5205540000000042      ) seconds
  
- Evaluation Counter:                 79400
+ Evaluation Counter:                 79815
  Acceptance Counter:                 10000
- Rejection  Counter:                 69400
+ Rejection  Counter:                 69815
   Alert  Counter:                     0
-  event generation rate (events/sec)   526.00821309223920     
+  event generation rate (events/sec)   1050.3590442320894     
   Done
-Output ready with cmsgrid_final.lhe at /afs/cern.ch/work/r/rebeca/hww_signal_gridpacks_II/CMSSW_7_1_14/src/tmp2
-End of job on  Wed Jul 22 17:48:41 CEST 2015
+Output ready with cmsgrid_final.lhe at /afs/cern.ch/work/r/rebeca/hww_signal_gridpacks_II/CMSSW_7_1_14/src/tmp
+End of job on  Thu Jul 30 15:19:17 CEST 2015
 
-Job finished at Wed Jul 22 17:48:42 CEST 2015 on node 
+Job finished at Thu Jul 30 15:19:19 CEST 2015 on node 
  under linux version Scientific Linux CERN SLC release 6.6 (Carbon)
 
-CERN statistics: This process used approximately : 37:47:14 KSI2K hours (136034 KSI2K seconds)
-                 This process corresponds to     : 147:22:12 HS06  hours (530532 HS06  seconds)
+CERN statistics: This process used approximately : 36:59:48 KSI2K hours (133188 KSI2K seconds)
+                 This process corresponds to     : 144:17:13 HS06  hours (519433 HS06  seconds)
