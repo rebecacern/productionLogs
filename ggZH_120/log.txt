@@ -1,0 +1,607 @@
+@(#)CERN job starter $Date: 2010/06/23 14:22:16 $
+Working directory is </pool/lsf/rebeca/684684574> on <b64d363063.cern.ch>
+
+   ______________________________________     
+         Running Powheg                       
+   ______________________________________     
+%MSG-POWHEG number of events requested = 1000
+%MSG-POWHEG random seed used for the run = 12312
+%MSG-POWHEG number of cputs for the run = 1
+vdecaymode   10   ! 1: e, 2: mu, 3: tau, 4:nu_e, 5: nu_mu, 6: nu_tau, 11: inclusive leptons, 12: inclusive neutrinos
+hdecaymode  -1  ! undecayed Higgs boson (for PYTHIA and HERWIG)
+
+hmass  120d0        ! Higgs boson mass 
+hwidth 0.351d-2     ! Higgs boson width 
+
+min_h_mass    10d0      
+max_h_mass 1000d0 
+
+min_z_mass     10d0
+max_z_mass     1000d0
+
+
+numevts 1000   ! number of events to be generated
+ih1 1             ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2 1             ! hadron 2 (1 for protons, -1 for antiprotons)
+ebeam1 6500d0     ! energy of beam 1
+ebeam2 6500d0     ! energy of beam 2
+
+bornktmin 0d0      ! (default 0d0) generation cut. Minimum kt in underlying Born
+bornsuppfact 0d0 ! (default 0d0)  mass param for Born suppression factor. If < 0 suppfact = 1
+pdfreweight 1
+#bornzerodamp  1
+
+
+! To be set only if using internal (mlm) pdfs
+! 131 cteq4m
+!  83 cteq4l
+! ndns1 131         ! pdf set for hadron 1 (mlm numbering)
+! ndns2 131         ! pdf set for hadron 2 (mlm numbering)
+! To be set only if using LHA pdfs
+! 19150 cteq4m
+! 19170 cteq4l
+! 10050 cteq6m
+! 21100 MSTW 2008 (NLO central)
+lhans1  263000         ! pdf set for hadron 1 (LHA numbering)
+lhans2  263000         ! pdf set for hadron 2 (LHA numbering)	
+! To be set only if using different pdf sets for the two incoming hadrons
+#QCDLambda5  0.25 ! for not equal pdf sets 
+
+renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
+facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
+
+! Parameters to allow or not the use of stored data
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+! the typical call uses 1/1400 seconds (1400 calls per second)
+ncall1 300000      ! Number of calls for the construction of the importance sampling grid
+itmx1 1           ! Number of iterations for grid
+ncall2 300000      ! Number of calls for the computation of the upper bounding envelope
+                  ! for the generation of radiation
+itmx2 1           ! Number of iterations for the above
+! Notice: the total number of calls is ncall2*itmx2*foldcsi*foldy*foldphi
+foldcsi 2         ! number of folds on csi integration
+foldy   5         ! number of folds on  y  integration
+foldphi 2         ! number of folds on phi integration
+
+nubound 2000000 ! number of calls to set up the upper bounding norms for radiation
+               ! This is performed using only the Born cross section (fast)
+
+
+! OPTIONAL PARAMETERS
+
+
+#ptsqmin    0.8    ! (default 0.8 GeV) minimum pt for generation of radiation
+#charmthr   1.5    ! (default 1.5 GeV) charm treshold for gluon splitting 
+#bottomthr  5.0    ! (default 5.0 GeV) bottom treshold for gluon splitting
+testplots  1      ! (default 0, do not) do NLO and PWHG distributions
+#charmthrpdf  1.5  ! (default 1.5 GeV) pdf charm treshold
+#bottomthrpdf 5.0  ! (default 5.0 GeV) pdf bottom treshold
+
+#xupbound 2d0   ! increase upper bound for radiation generation
+iseed    12312         !  Start the random number generator with seed iseed
+#rand1     0          !  skipping  rand2*100000000+rand1 numbers.  
+#rand2     0          !  (see RM48 short writeup in CERNLIB)              
+#manyseeds 1         ! Used to perform multiple runs with different random
+                     ! seeds in the same directory.
+                     ! If set to 1, the program asks for an integer j;
+                     ! The file pwgseeds.dat at line j is read, and the
+                     ! integer at line j is used to initialize the random
+                     ! sequence for the generation of the event.
+                     ! The event file is called pwgevents-'j'.lhe
+
+#parallelstage 1
+#xgriditeration 1
+fastbtlbound 1
+
+storeinfo_rwgt 1   ! store info to allow for reweighting
+withnegweights 0
+#flg_debug 1
+
+doublefsr 1 
+
+nohad   1
+
+
+LOevents 1
+# with LOevents equal 1, bornonly must be set equal to 1
+bornonly 1 
+
+lhrwgt_id 'c'
+lhrwgt_descr 'muR=0.10000E+01 muF=0.10000E+01'
+lhrwgt_group_name 'scale_variation'
+lhrwgt_group_combine 'envelope'
+
+computing weights for 9 scale variations
+
+
+ doing scale 1, 1
+
+
+ doing scale 1, 2
+
+
+ doing scale 1, 0.5
+
+
+ doing scale 2, 1
+
+
+ doing scale 2, 2
+
+
+ doing scale 2, 0.5
+
+
+ doing scale 0.5, 1
+
+
+ doing scale 0.5, 2
+
+
+ doing scale 0.5, 0.5
+
+
+computing weights for 100 NNPDF3.0 variations
+
+
+ PDF set 260001
+
+ PDF set 260002
+
+ PDF set 260003
+
+ PDF set 260004
+
+ PDF set 260005
+
+ PDF set 260006
+
+ PDF set 260007
+
+ PDF set 260008
+
+ PDF set 260009
+
+ PDF set 260010
+
+ PDF set 260011
+
+ PDF set 260012
+
+ PDF set 260013
+
+ PDF set 260014
+
+ PDF set 260015
+
+ PDF set 260016
+
+ PDF set 260017
+
+ PDF set 260018
+
+ PDF set 260019
+
+ PDF set 260020
+
+ PDF set 260021
+
+ PDF set 260022
+
+ PDF set 260023
+
+ PDF set 260024
+
+ PDF set 260025
+
+ PDF set 260026
+
+ PDF set 260027
+
+ PDF set 260028
+
+ PDF set 260029
+
+ PDF set 260030
+
+ PDF set 260031
+
+ PDF set 260032
+
+ PDF set 260033
+
+ PDF set 260034
+
+ PDF set 260035
+
+ PDF set 260036
+
+ PDF set 260037
+
+ PDF set 260038
+
+ PDF set 260039
+
+ PDF set 260040
+
+ PDF set 260041
+
+ PDF set 260042
+
+ PDF set 260043
+
+ PDF set 260044
+
+ PDF set 260045
+
+ PDF set 260046
+
+ PDF set 260047
+
+ PDF set 260048
+
+ PDF set 260049
+
+ PDF set 260050
+
+ PDF set 260051
+
+ PDF set 260052
+
+ PDF set 260053
+
+ PDF set 260054
+
+ PDF set 260055
+
+ PDF set 260056
+
+ PDF set 260057
+
+ PDF set 260058
+
+ PDF set 260059
+
+ PDF set 260060
+
+ PDF set 260061
+
+ PDF set 260062
+
+ PDF set 260063
+
+ PDF set 260064
+
+ PDF set 260065
+
+ PDF set 260066
+
+ PDF set 260067
+
+ PDF set 260068
+
+ PDF set 260069
+
+ PDF set 260070
+
+ PDF set 260071
+
+ PDF set 260072
+
+ PDF set 260073
+
+ PDF set 260074
+
+ PDF set 260075
+
+ PDF set 260076
+
+ PDF set 260077
+
+ PDF set 260078
+
+ PDF set 260079
+
+ PDF set 260080
+
+ PDF set 260081
+
+ PDF set 260082
+
+ PDF set 260083
+
+ PDF set 260084
+
+ PDF set 260085
+
+ PDF set 260086
+
+ PDF set 260087
+
+ PDF set 260088
+
+ PDF set 260089
+
+ PDF set 260090
+
+ PDF set 260091
+
+ PDF set 260092
+
+ PDF set 260093
+
+ PDF set 260094
+
+ PDF set 260095
+
+ PDF set 260096
+
+ PDF set 260097
+
+ PDF set 260098
+
+ PDF set 260099
+
+ PDF set 260100
+
+computing weights for NNPDF 3.0 alphas=0.117 variation
+
+
+ PDF set 265000
+
+computing weights for NNPDF 3.0 alphas=0.119 variation
+
+
+ PDF set 266000
+
+computing weights for 52+1 CT10 PDF variations
+
+
+ PDF set 11000
+
+ PDF set 11001
+
+ PDF set 11002
+
+ PDF set 11003
+
+ PDF set 11004
+
+ PDF set 11005
+
+ PDF set 11006
+
+ PDF set 11007
+
+ PDF set 11008
+
+ PDF set 11009
+
+ PDF set 11010
+
+ PDF set 11011
+
+ PDF set 11012
+
+ PDF set 11013
+
+ PDF set 11014
+
+ PDF set 11015
+
+ PDF set 11016
+
+ PDF set 11017
+
+ PDF set 11018
+
+ PDF set 11019
+
+ PDF set 11020
+
+ PDF set 11021
+
+ PDF set 11022
+
+ PDF set 11023
+
+ PDF set 11024
+
+ PDF set 11025
+
+ PDF set 11026
+
+ PDF set 11027
+
+ PDF set 11028
+
+ PDF set 11029
+
+ PDF set 11030
+
+ PDF set 11031
+
+ PDF set 11032
+
+ PDF set 11033
+
+ PDF set 11034
+
+ PDF set 11035
+
+ PDF set 11036
+
+ PDF set 11037
+
+ PDF set 11038
+
+ PDF set 11039
+
+ PDF set 11040
+
+ PDF set 11041
+
+ PDF set 11042
+
+ PDF set 11043
+
+ PDF set 11044
+
+ PDF set 11045
+
+ PDF set 11046
+
+ PDF set 11047
+
+ PDF set 11048
+
+ PDF set 11049
+
+ PDF set 11050
+
+ PDF set 11051
+
+ PDF set 11052
+
+computing weights for CT10 alphas=0.117 variation
+
+
+ PDF set 11067
+
+computing weights for CT10 alphas=0.119 variation
+
+
+ PDF set 11069
+
+computing weights for 50+1 MMHT2014nlo68clas118 PDF variations
+
+
+ PDF set 25200
+
+ PDF set 25201
+
+ PDF set 25202
+
+ PDF set 25203
+
+ PDF set 25204
+
+ PDF set 25205
+
+ PDF set 25206
+
+ PDF set 25207
+
+ PDF set 25208
+
+ PDF set 25209
+
+ PDF set 25210
+
+ PDF set 25211
+
+ PDF set 25212
+
+ PDF set 25213
+
+ PDF set 25214
+
+ PDF set 25215
+
+ PDF set 25216
+
+ PDF set 25217
+
+ PDF set 25218
+
+ PDF set 25219
+
+ PDF set 25220
+
+ PDF set 25221
+
+ PDF set 25222
+
+ PDF set 25223
+
+ PDF set 25224
+
+ PDF set 25225
+
+ PDF set 25226
+
+ PDF set 25227
+
+ PDF set 25228
+
+ PDF set 25229
+
+ PDF set 25230
+
+ PDF set 25231
+
+ PDF set 25232
+
+ PDF set 25233
+
+ PDF set 25234
+
+ PDF set 25235
+
+ PDF set 25236
+
+ PDF set 25237
+
+ PDF set 25238
+
+ PDF set 25239
+
+ PDF set 25240
+
+ PDF set 25241
+
+ PDF set 25242
+
+ PDF set 25243
+
+ PDF set 25244
+
+ PDF set 25245
+
+ PDF set 25246
+
+ PDF set 25247
+
+ PDF set 25248
+
+ PDF set 25249
+
+ PDF set 25250
+
+computing weights for 5 MMHT2014nlo68cl 5 alphas variations
+
+
+ PDF set 25260
+
+ PDF set 25261
+
+ PDF set 25262
+
+ PDF set 25263
+
+ PDF set 25264
+
+ finished computing weights ..
+
+-rw-r--r--. 1 rebeca zh 10061747 Aug  5 05:14 cmsgrid_final.lhe
+/afs/cern.ch/work/r/rebeca/hww_signal_gridpacks_II/CMSSW_7_1_14/src/tmp/powhegbox_ggHZ
+Output ready with cmsgrid_final.lhe at /afs/cern.ch/work/r/rebeca/hww_signal_gridpacks_II/CMSSW_7_1_14/src/tmp
+End of job on  Wed Aug 5 05:14:16 CEST 2015
+
+Job finished at Wed Aug  5 05:14:16 CEST 2015 on node 
+ under linux version Scientific Linux CERN SLC release 6.6 (Carbon)
+
+CERN statistics: This process used approximately : 12:00:26 KSI2K hours (43226 KSI2K seconds)
+                 This process corresponds to     : 46:49:42 HS06  hours (168582 HS06  seconds)
